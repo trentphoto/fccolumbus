@@ -18,7 +18,7 @@ import createStore from '../dist/modules/store'
 import App from '../dist/App'
 import manifest from '../build/asset-manifest.json'
 
-import { fetchAllPostsSuccess } from '../dist/modules/ducks/posts/operations'
+import { fetchAllPagesSuccess } from '../dist/modules/ducks/pages/operations'
 import api from '../src/modules/api'
 
 // loader
@@ -58,8 +58,8 @@ export default (req, res) => {
       const { store } = createStore(req.url)
 
       // async redux actions go here
-      const posts = await api.wp.getAllPosts()
-      store.dispatch(fetchAllPostsSuccess(posts))
+      const pages = await api.wp.getAllPages()
+      store.dispatch(fetchAllPagesSuccess(pages))
 
       const context = {}
       const modules = []

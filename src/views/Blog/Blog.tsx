@@ -4,21 +4,21 @@ import renderHTML from 'react-render-html'
 import { Link } from 'react-router-dom'
 
 import './Blog.css'
-import { fetchAllPosts } from '../../modules/ducks/posts/operations'
+import { fetchAllPages } from '../../modules/ducks/pages/operations'
 import { ReduxState } from '../../types/redux'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
 interface Props {
-  posts: ReduxState['posts']['allPosts']
-  fetchPosts: () => Promise<void>
+  pages: ReduxState['pages']['allPages']
+  fetchPages: () => Promise<void>
 }
 
 class Blog extends React.Component<Props> {
   public componentDidMount() {
-    const { posts, fetchPosts } = this.props
-    if (posts.data.length === 0) {
-      fetchPosts()
+    const { pages, fetchPages } = this.props
+    if (pages.data.length === 0) {
+      fetchPages()
     }
   }
 
@@ -30,15 +30,15 @@ class Blog extends React.Component<Props> {
         </Helmet>
         <h1>Blog</h1>
 
-        {this.props.posts.data.map((post: WPPost) => (
-          <div key={post.id} style={{ maxWidth: '720px' }}>
-            <h1>{renderHTML(post.title.rendered)}</h1>
+        {this.props.pages.data.map((page: WPPage) => (
+          <div key={page.id} style={{ maxWidth: '720px' }}>
+            <h1>{renderHTML(page.title.rendered)}</h1>
             <React.Fragment>
-              {renderHTML(post.content.rendered.substring(0, 100))}...
+              {renderHTML(page.content.rendered.substring(0, 100))}...
             </React.Fragment>
             <p>
               Link:{' '}
-              <Link to={`/blog/${post.slug}`}>Click here to read more.</Link>
+              <Link to={`/blog/${page.slug}`}>Click here to read more.</Link>
             </p>
           </div>
         ))}
@@ -48,11 +48,11 @@ class Blog extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-  posts: state.posts.allPosts
+  pages: state.pages.allPages
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchPosts: () => fetchAllPosts()(dispatch)
+  fetchPages: () => fetchAllPages()(dispatch)
 })
 
 export default connect(

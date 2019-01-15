@@ -27,9 +27,9 @@ textarea:-webkit-autofill {
 }
 
 .page-wrapper {
-  width: 95%;
+  width: 100%;
   margin: 0 auto;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   position: relative;
   display: flex;
   justify-content: space-between;

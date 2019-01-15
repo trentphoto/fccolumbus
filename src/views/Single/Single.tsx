@@ -1,23 +1,23 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-import { fetchAllPosts } from '../../modules/ducks/posts/operations'
+import { fetchAllPages } from '../../modules/ducks/pages/operations'
 import renderHTML from 'react-render-html'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { ReduxState } from '../../types/redux'
 
 interface Props {
-  posts: ReduxState['posts']['allPosts']
-  post: ReduxState['posts']['post']
-  fetchPosts: () => Promise<void>
+  pages: ReduxState['pages']['allPages']
+  post: ReduxState['pages']['page']
+  fetchPages: () => Promise<void>
 }
 
 class Single extends React.Component<Props> {
   public componentDidMount() {
     // if data isn't loaded yet, fetch it and load it into redux store
-    const { posts, fetchPosts } = this.props
-    if (posts.data.length === 0) {
-      fetchPosts()
+    const { pages, fetchPages } = this.props
+    if (pages.data.length === 0) {
+      fetchPages()
     }
   }
 
@@ -39,14 +39,14 @@ class Single extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: ReduxState, ownProps: any) => ({
-  posts: state.posts.allPosts,
-  post: state.posts.allPosts.data.filter(
+  pages: state.pages.allPages,
+  page: state.pages.allPages.data.filter(
     i => i.slug === ownProps.match.params.slug
   )[0]
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchPosts: () => fetchAllPosts()(dispatch)
+  fetchPages: () => fetchAllPages()(dispatch)
 })
 
 export default connect(
