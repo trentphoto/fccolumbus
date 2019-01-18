@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom'
 
 const StyledGrid = styled.section`
   display: grid;
+  grid-gap: 3px;
+  background-color: ${props => props.theme.dark};
+  padding: 3px;
 
   @media (min-width: 992px) {
     grid-template-columns: repeat(2, 1fr);
@@ -16,49 +19,49 @@ interface IStyledGridItem {
 }
 
 const StyledGridItem = styled.div<IStyledGridItem>`
+  position: relative;
+  padding: 5rem 0;
+  text-align: center;
+  background-image: url(${props => props.bg});
+  background-position: center center;
+  background-size: cover;
+  color: white;
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: ${props => props.theme.red};
+    opacity: 0.8;
+    transition: ${props =>
+        props.theme.timing.duration.slow + ' ' + props.theme.timing.curve}
+      opacity;
+    z-index: 2;
+  }
+
+  &:hover,
+  &:focus {
+    outline: none;
+  }
+
+  &:hover:after,
+  &:focus:after {
+    opacity: 0.5;
+  }
+
+  h2 {
+    z-index: 3;
     position: relative;
-    padding: 5rem 0;
-    text-align: center;
-    background-image: url(${props => props.bg});
-    background-position: center center;
-    background-size: cover;
-    color: white;
-    border: 3px solid ${props => props.theme.dark}
-    
-
-    &:after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: ${props => props.theme.red};
-        opacity: .8;
-        transition: ${props =>
-          props.theme.timing.duration.slow +
-          ' ' +
-          props.theme.timing.curve} opacity;
-        z-index: 2;
-    }
-
-    &:hover {
-
-    }
-
-    &:hover:after {
-        opacity: .5;
-    }
-
-    h2 {
-        z-index: 3;
-        position: relative;
-    }
+  }
 `
 
 interface Props {
   subpages: WPPage[]
+  baseURL: string
 }
 
 const Grid: React.SFC<Props> = props => (
@@ -68,7 +71,7 @@ const Grid: React.SFC<Props> = props => (
         ? urlBase + i._embedded['wp:featuredmedia'][0].source_url
         : `${siteBase}/app/uploads/2019/01/fcc-41.jpg`
       return (
-        <Link to={`/${i.slug}`}>
+        <Link key={i.id} to={`${props.baseURL}/${i.slug}`}>
           <StyledGridItem bg={bg}>
             <h2>{i.title.rendered}</h2>
           </StyledGridItem>

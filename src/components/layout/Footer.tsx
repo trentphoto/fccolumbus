@@ -13,6 +13,12 @@ const StyledFooter = styled('footer')`
   position: relative;
   padding: 5rem 0 0 0;
 
+  .col-lg-3 {
+    @media (max-width: 991px) {
+      margin-top: 3rem;
+    }
+  }
+
   a,
   a:hover,
   h4,
@@ -84,7 +90,7 @@ const Footer: React.SFC = () => (
       <div className="d-flex align-items-center">
         <div className="container">
           <div className="row">
-            <div className="col-md-3 text-left text-white">
+            <div className="col-lg-3 col-md-6 text-left text-white">
               <H3>
                 First Church <br />
                 of Columbus
@@ -108,7 +114,7 @@ const Footer: React.SFC = () => (
                 </a>
               </LinkList>
             </div>
-            <div className="col-md-3 mt-5">
+            <div className="col-lg-3 col-md-6">
               <H4>Explore</H4>
               <LinkList>
                 <NavLink exact to="/">
@@ -120,7 +126,7 @@ const Footer: React.SFC = () => (
                 <NavLink to="/act">Act</NavLink>
               </LinkList>
             </div>
-            <div className="col-md-3 mt-5">
+            <div className="col-lg-3 col-md-6">
               <H4>Discover</H4>
               <LinkList>
                 <NavLink exact to="/">
@@ -133,7 +139,7 @@ const Footer: React.SFC = () => (
               </LinkList>
             </div>
 
-            <div className="col-md-3 mt-5">
+            <div className="col-lg-3 col-md-6">
               <H4>Worship Times</H4>
               <p>9:00 AM</p>
               <p>Informal worship with Communion in Parish Hall</p>

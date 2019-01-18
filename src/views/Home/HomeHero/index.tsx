@@ -1,10 +1,10 @@
 import React from 'react'
-import { NavLink, Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import styled from '../../styled-components'
-import Button from '../../components/Button'
+import styled from '../../../styled-components'
+import Button from '../../../components/Button'
 
-import imgHero from '../../img/fcc-41.jpg'
+import imgHero from '../../../img/fcc-41.jpg'
+import TopNav from './TopNav'
 
 const HeroSection = styled('section')`
   display: block;
@@ -42,10 +42,6 @@ const HeroSection = styled('section')`
   }
 `
 
-const Nav = styled('div')`
-  padding-top: 2rem;
-`
-
 const Title = styled('h1')`
   text-transform: uppercase;
   letter-spacing: 4px;
@@ -57,24 +53,11 @@ export default class HomeHero extends React.Component {
   render() {
     return (
       <HeroSection>
-        <Nav className="container">
+        <div className="container pt-4">
           <div className="row">
             <div className="col d-flex justify-content-between">
               <div className="logo">First Church Columbus</div>
-              <ul className="nav d-none d-xl-flex">
-                <li className="nav-item mx-2">
-                  <NavLink to="/">Home</NavLink>
-                </li>
-                <li className="nav-item mx-2">
-                  <NavLink to="/connect">Connect</NavLink>
-                </li>
-                <li className="nav-item mx-2">
-                  <NavLink to="/gather">Gather</NavLink>
-                </li>
-                <li className="nav-item mx-2">
-                  <NavLink to="/grow">Grow</NavLink>
-                </li>
-              </ul>
+              <TopNav />
               <div className="icons d-flex">
                 <span className="mx-3">
                   <FontAwesomeIcon icon="search" size="lg" />
@@ -85,17 +68,17 @@ export default class HomeHero extends React.Component {
               </div>
             </div>
           </div>
-        </Nav>
+        </div>
 
         <div className="middle">
-          <Title>Lorem Ipsum Dolor</Title>
+          <Title>Welcome to First Church.</Title>
           <div className="buttons">
-            <Link to="/connect" className="mr-4">
-              <Button>I'm New</Button>
-            </Link>
-            <Link to="/news" className="">
-              <Button light={true}>Sermons</Button>
-            </Link>
+            <Button isLink to="/about/welcome" className="mr-4">
+              I'm New
+            </Button>
+            <Button light onClick={() => console.log(1)}>
+              Sermons
+            </Button>
           </div>
         </div>
       </HeroSection>

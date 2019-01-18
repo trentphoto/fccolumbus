@@ -1,19 +1,25 @@
 import React from 'react'
 import styled from '../../styled-components'
-import Button from '../Button'
 import bgImg from '../../img/fcc-103.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
+import Takeover from '../../blocks/Takeover'
+import NavButton from './NavButton'
 
 const StyledNavbar = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: space-between;
   background-image: url(${bgImg});
   background-size: cover;
   background-position: center center;
   position: relative;
   padding: 3rem;
+
+  @media (min-width: 790px) {
+    flex-direction: row;
+  }
 
   &:before {
     content: '';
@@ -29,7 +35,7 @@ const StyledNavbar = styled.nav`
   }
 
   & > * {
-    z-index: 2;
+    z-index: 500;
     position: relative;
   }
 `
@@ -46,17 +52,9 @@ const Lockup = styled.div`
 const Buttons = styled.div`
   display: flex;
   flex-direction: column;
-`
 
-const NavButton = styled(Button)`
-  padding: 0.75rem 1rem;
-  border-radius: 3px;
-  color: white;
-  background-color: rgba(255, 255, 255, 0.2);
-
-  &:hover {
-    color: black;
-    background-color: rgba(255, 255, 255, 0.9);
+  @media (min-width: 790px) {
+    flex-direction: row;
   }
 `
 
@@ -68,14 +66,12 @@ const Navbar: React.SFC = () => (
       </Lockup>
     </Link>
     <Buttons>
-      <NavButton light className="mr-1 mb-1">
+      <NavButton light className="">
         <FontAwesomeIcon icon="search" className="mr-3" />
         Search
       </NavButton>
-      <NavButton light>
-        <FontAwesomeIcon icon="bars" className="mr-3" />
-        Menu
-      </NavButton>
+
+      <Takeover />
     </Buttons>
   </StyledNavbar>
 )

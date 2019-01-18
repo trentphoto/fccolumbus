@@ -6,11 +6,25 @@ import { ReduxState } from '../../types/redux'
 import { Dispatch } from 'redux'
 import { fetchAllPages } from '../../modules/ducks/pages/operations'
 import { RouteComponentProps } from 'react-router'
-import Navbar from '../../components/layout/Navbar'
+import { Switch, Route } from 'react-router-dom'
+import Navbar from '../../blocks/Navbar'
 import H1 from '../../components/layout/H1'
-import Section from '../../components/layout/Section'
 import SubpageNavBoxes from '../../blocks/SubpageNavBoxes'
 import img1 from '../../img/fcc-41.jpg'
+import FooterCTA from '../../blocks/FooterCTA'
+import Footer from '../../components/layout/Footer'
+import styled from '../../styled-components'
+import Section from '../../components/layout/Section'
+import Breadcrumbs from '../../blocks/Breadcrumbs'
+import { StaffPage } from '..'
+
+const Copy = styled.section`
+  display: grid;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`
 
 interface Props extends RouteComponentProps<MatchParams> {
   pages: ReduxState['pages']['allPages']['data']
@@ -31,19 +45,70 @@ class Lvl2Page extends React.Component<Props> {
       fetchPages()
     }
   }
-  public render() {
-    const { page, subpages } = this.props
+
+  Lvl2PageTemplate = () => {
+    const { page, subpages, match } = this.props
     return (
-      <div className="page Lvl2Page">
+      <>
         <Helmet>
           <title />
         </Helmet>
-        <Navbar />
+        <Copy>
+          <div className="p-5">
+            <H1>{page ? page.title.rendered : 'Loading...'}</H1>
+            <div
+              className="content"
+              dangerouslySetInnerHTML={{
+                __html: page && page.content.rendered
+              }}
+            />
+          </div>
+          <div className="">
+            <img
+              src={img1}
+              alt={page && page.title.rendered}
+              className="img-fluid"
+            />
+          </div>
+        </Copy>
+        <section>
+          {subpages && (
+            <SubpageNavBoxes baseURL={match.path} subpages={subpages} />
+          )}
+        </section>
+
+        <br />
+      </>
+    )
+  }
+
+  private Lvl3PageTemplate(page: WPPage) {
+    if (page.id === 19) return <StaffPage />
+
+    return (
+      <>
+        <Helmet>
+          <title>{page && page.title.rendered}</title>
+        </Helmet>
+        <section className="py-3">
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <Breadcrumbs parentID={page.parent} page={page && page} />
+              </div>
+            </div>
+          </div>
+        </section>
         <Section>
           <div className="container">
             <div className="row">
-              <div className="col-md-6">
+              <div className="col">
                 <H1>{page && page.title.rendered}</H1>
+                <img
+                  src={img1}
+                  alt={page && page.title.rendered}
+                  className="img-fluid w-50 pl-3 pb-3 float-right"
+                />
                 <div
                   className="content"
                   dangerouslySetInnerHTML={{
@@ -51,17 +116,32 @@ class Lvl2Page extends React.Component<Props> {
                   }}
                 />
               </div>
-              <div className="col-md-6">
-                <img
-                  src={img1}
-                  alt={page && page.title.rendered}
-                  className="img-fluid"
-                />
-              </div>
             </div>
           </div>
         </Section>
-        <section>{subpages && <SubpageNavBoxes subpages={subpages} />}</section>
+      </>
+    )
+  }
+
+  public render() {
+    const { subpages, match } = this.props
+    return (
+      <div className="page">
+        <Navbar />
+        <Switch>
+          <Route exact path={match.path} render={this.Lvl2PageTemplate} />
+          {subpages &&
+            subpages.map(i => (
+              <Route
+                key={i.id}
+                path={match.path + '/' + i.slug}
+                render={this.Lvl3PageTemplate.bind(this, i)}
+              />
+            ))}
+        </Switch>
+
+        <FooterCTA />
+        <Footer />
       </div>
     )
   }

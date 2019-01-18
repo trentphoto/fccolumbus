@@ -1,7 +1,7 @@
 // defaults
 import * as React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { About, Home, NotFound, Blog, Single } from './views'
+import { About, Home, NotFound } from './views'
 import { ThemeProvider, createGlobalStyle } from './styled-components'
 import Lvl2Page from './views/Lvl2Page/Lvl2Page'
 
@@ -11,9 +11,23 @@ import {
   faBars,
   faMapMarkerAlt,
   faPhone,
-  faEnvelope
+  faEnvelope,
+  faChevronRight,
+  faChevronLeft,
+  faHome,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons'
-library.add(faSearch, faBars, faMapMarkerAlt, faPhone, faEnvelope)
+library.add(
+  faSearch,
+  faBars,
+  faMapMarkerAlt,
+  faPhone,
+  faEnvelope,
+  faChevronRight,
+  faChevronLeft,
+  faHome,
+  faTimes
+)
 
 const theme = {
   red: '#8e1212',
@@ -52,7 +66,7 @@ const App = () => (
       <div className="page-wrapper">
         <Switch>
           <Route exact={true} path="/" component={Home} />
-          <Route path="/about" component={About} />
+          <Route path="/about" component={Lvl2Page} />
           <Route path="/connect" component={Lvl2Page} />
           <Route path="/gather" component={Lvl2Page} />
           <Route path="/grow" component={Lvl2Page} />

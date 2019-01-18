@@ -22,15 +22,32 @@ const Content = styled.div`
   padding: 2rem;
 `
 
+const ImgWrapper = styled.div`
+  max-height: 240px;
+  overflow: hidden;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-position: center;
+  }
+`
+
 interface Props {
   title: string
   excerpt: string
   img: string
+  onClick?: () => void
 }
 
 const PostCard: React.SFC<Props> = props => (
-  <StyledPostCard>
-    <img src={props.img} alt={props.title} className="img-fluid" />
+  <StyledPostCard onClick={props.onClick}>
+    <ImgWrapper>
+      <img src={props.img} alt={props.title} />
+    </ImgWrapper>
     <Content>
       <h3>{props.title}</h3>
       <p>{props.excerpt}</p>
