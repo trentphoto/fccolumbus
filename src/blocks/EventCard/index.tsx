@@ -7,20 +7,23 @@ import Datebox from './Datebox'
 import Time from './Time'
 import Title from './Title'
 import Description from './Description'
+import { Link } from 'react-router-dom'
 
 interface IProps {
   title: string
   description?: string
   date: Date
   time: string
+  slug: string
 }
 
-const EventCard_styled = styled.div`
+const EventCard_styled = styled(Link)`
   background-color: ${props => props.theme.white};
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
   display: flex;
   margin: 2rem 0;
+  color: ${props => props.theme.dark};
   transition: ${props =>
       props.theme.timing.duration.slow + ' ' + props.theme.timing.curve}
     all;
@@ -28,6 +31,7 @@ const EventCard_styled = styled.div`
   &:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     transform: translateY(-3px);
+    color: ${props => props.theme.dark};
   }
 `
 
@@ -67,7 +71,7 @@ class EventCard extends React.Component<IProps> {
   public static Description = Description
   public render() {
     return (
-      <EventCard_styled>
+      <EventCard_styled to={'/gather/events/' + this.props.slug}>
         <Datebox
           date={this.props.date.getDate()}
           month={getMonthName(this.props.date.getMonth())}

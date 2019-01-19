@@ -21,6 +21,9 @@ import manifest from '../build/asset-manifest.json'
 import { fetchAllPagesSuccess } from '../dist/modules/ducks/pages/operations'
 import api from '../src/modules/api'
 
+// styled-components stuff
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
+
 // loader
 export default (req, res) => {
   /*
@@ -30,10 +33,13 @@ export default (req, res) => {
         - preloaded state (for Redux) depending on the current route
         - code-split script tags depending on the current route
     */
-  const injectHTML = (data, { html, title, meta, body, scripts, state }) => {
+  const injectHTML = (
+    data,
+    { html, title, meta, body, scripts, styles, state }
+  ) => {
     data = data.replace('<html>', `<html ${html}>`)
     data = data.replace(/<title>.*?<\/title>/g, title)
-    data = data.replace('</head>', `${meta}</head>`)
+    data = data.replace('</head>', `${meta}${styles}</head>`)
     data = data.replace(
       '<div id="root"></div>',
       `<div id="root">${body}</div><script>window.__PRELOADED_STATE__ = ${state}</script>`
@@ -64,6 +70,9 @@ export default (req, res) => {
       const context = {}
       const modules = []
 
+      // styled-components
+      const sheet = new ServerStyleSheet()
+
       /*
         Here's the core functionality of this file. we do the following in specific order:
         1. Load the <App /> Component
@@ -78,19 +87,21 @@ export default (req, res) => {
         data for that page. we take all that information and compute the appropriate state to send to the user. this is
         then loaded into the correct components and sent as a Promise to be handled below.
         */
-      frontloadServerRender(() =>
+      frontloadServerRender(() => {
         renderToString(
           <Loadable.Capture report={m => modules.push(m)}>
-            <Provider store={store}>
-              <StaticRouter location={req.url} context={context}>
-                <Frontload isServer={true}>
-                  <App />
-                </Frontload>
-              </StaticRouter>
-            </Provider>
+            <StyleSheetManager sheet={sheet.instance}>
+              <Provider store={store}>
+                <StaticRouter location={req.url} context={context}>
+                  <Frontload isServer={true}>
+                    <App />
+                  </Frontload>
+                </StaticRouter>
+              </Provider>
+            </StyleSheetManager>
           </Loadable.Capture>
         )
-      ).then(routeMarkup => {
+      }).then(routeMarkup => {
         if (context.url) {
           // if context has a url property, then we need to handle a rediraction in redux router
           res.writeHead(302, {
@@ -123,6 +134,9 @@ export default (req, res) => {
           // let's output the title, just to see SSR is working as intended
           console.log('THE TITLE', helmet.title.toString())
 
+          // this must be called after the component is rendered above
+          const styleTags = sheet.getStyleTags() // or sheet.getStyleElement();
+
           // pass all this into our html formatting function above - injectHTML()
           const html = injectHTML(htmlData, {
             html: helmet.htmlAttributes.toString(),
@@ -130,6 +144,7 @@ export default (req, res) => {
             meta: helmet.meta.toString(),
             body: routeMarkup,
             scripts: extraChunks,
+            styles: styleTags,
             state: JSON.stringify(store.getState()).replace(/</g, '\\u003c')
           })
 

@@ -26,6 +26,10 @@ const Menu: MenuItem[] = [
       {
         title: 'Who We Are',
         slug: 'who-we-are'
+      },
+      {
+        title: 'Staff',
+        slug: 'staff'
       }
     ]
   },
@@ -34,12 +38,20 @@ const Menu: MenuItem[] = [
     slug: 'connect',
     subpages: [
       {
-        title: 'Building Use',
-        slug: 'building-use'
+        title: "Pastor's Blog",
+        slug: 'pastors-blog'
+      },
+      {
+        title: 'News',
+        slug: 'news'
       },
       {
         title: 'Contact Us',
         slug: 'contact-us'
+      },
+      {
+        title: 'Building Use',
+        slug: 'building-use'
       },
       {
         title: 'Weddings',
@@ -51,6 +63,10 @@ const Menu: MenuItem[] = [
     title: 'Gather',
     slug: 'gather',
     subpages: [
+      {
+        title: 'Events',
+        slug: 'events'
+      },
       {
         title: 'Concerts',
         slug: 'concerts'

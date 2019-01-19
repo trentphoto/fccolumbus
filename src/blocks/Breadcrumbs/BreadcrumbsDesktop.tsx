@@ -9,6 +9,7 @@ const Divider = styled.div`
 
 const StyledBreadcrumbSection = styled.section`
   background-color: ${props => props.theme.lightgray};
+  padding: 1rem 0;
 
   .col {
     display: flex;
@@ -28,9 +29,13 @@ const StyledBreadcrumbSection = styled.section`
 `
 
 interface Props {
-  parentID: number
-  parent?: WPPage
-  page?: WPPage
+  levels: 3 | 4
+  lvl2Link: string
+  lvl2Label: string
+  lvl3Link?: string
+  lvl3Label: string
+  lvl4Link?: string
+  lvl4Label?: string
 }
 
 const BreadcrumbsDesktop = (props: Props) => (
@@ -38,19 +43,36 @@ const BreadcrumbsDesktop = (props: Props) => (
     <div className="container">
       <div className="row">
         <div className="col">
+          {/* level 1: Home */}
           <Link to={'/'}>
             <FontAwesomeIcon icon="home" />
           </Link>
           <Divider>
             <FontAwesomeIcon icon="chevron-right" />
           </Divider>
-          <Link to={props.parent ? '/' + props.parent.slug : ''}>
-            {props.parent && props.parent.title.rendered}
-          </Link>
+
+          {/* Level 2 */}
+          <Link to={props.lvl2Link}>{props.lvl2Label}</Link>
           <Divider>
             <FontAwesomeIcon icon="chevron-right" />
           </Divider>
-          <div className="p-3">{props.page && props.page.title.rendered}</div>
+
+          {/* level 3 */}
+          {props.levels === 3 ? (
+            <div className="p-3">{props.lvl3Label}</div>
+          ) : (
+            <>
+              <Link to={props.lvl3Link ? props.lvl3Link : ''}>
+                {props.lvl3Label}
+              </Link>
+              <Divider>
+                <FontAwesomeIcon icon="chevron-right" />
+              </Divider>
+
+              {/* level 4 */}
+              <div className="p-3">{props.lvl4Label}</div>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -1,9 +1,8 @@
 // defaults
 import * as React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { About, Home, NotFound } from './views'
+import { Home, NotFound, Lvl2Page } from './views'
 import { ThemeProvider, createGlobalStyle } from './styled-components'
-import Lvl2Page from './views/Lvl2Page/Lvl2Page'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -15,7 +14,9 @@ import {
   faChevronRight,
   faChevronLeft,
   faHome,
-  faTimes
+  faTimes,
+  faCalendar,
+  faClock
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
   faSearch,
@@ -26,7 +27,9 @@ library.add(
   faChevronRight,
   faChevronLeft,
   faHome,
-  faTimes
+  faTimes,
+  faCalendar,
+  faClock
 )
 
 const theme = {
@@ -69,10 +72,9 @@ const App = () => (
           <Route path="/about" component={Lvl2Page} />
           <Route path="/connect" component={Lvl2Page} />
           <Route path="/gather" component={Lvl2Page} />
+          <Route path="/give" component={Lvl2Page} />
           <Route path="/grow" component={Lvl2Page} />
           <Route path="/lead" component={Lvl2Page} />
-          {/* <Route exact={true} path="/blog" component={Blog} />
-          <Route path="/blog/:slug" component={Single} /> */}
           <Route component={NotFound} />
         </Switch>
       </div>

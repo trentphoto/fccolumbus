@@ -19,26 +19,47 @@ import './Home.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Section from '../../components/layout/Section'
 import Gallery from './Gallery'
-import PostCard from '../../blocks/PostCard'
+import { Card } from '../../blocks'
 import FooterCTA from '../../blocks/FooterCTA'
 import { connect } from 'react-redux'
 import { ReduxState } from '../../types/redux'
 import { Dispatch } from 'redux'
 import { fetchAllPages } from '../../modules/ducks/pages/operations'
+import { fetchAllNews } from '../../modules/ducks/news/operations'
+import Button from '../../components/Button'
+import { fetchAllEvents } from '../../modules/ducks/events/operations'
 
 interface Props {
   pages: ReduxState['pages']['allPages']
+  news: ReduxState['news']['allNews']
+  events: ReduxState['events']['allEvents']
   fetchPages: () => Promise<void>
+  fetchNews: () => Promise<void>
+  fetchEvents: () => Promise<void>
 }
 
 class Home extends React.Component<Props> {
   public componentDidMount() {
-    const { pages, fetchPages } = this.props
+    const {
+      pages,
+      news,
+      events,
+      fetchPages,
+      fetchNews,
+      fetchEvents
+    } = this.props
     if (!pages || pages.data.length === 0) {
       fetchPages()
     }
+    if (!news || news.data.length === 0) {
+      fetchNews()
+    }
+    if (!events || events.data.length === 0) {
+      fetchEvents()
+    }
   }
   public render() {
+    const { news, events } = this.props
     return (
       <div className="home page">
         <Helmet>
@@ -118,18 +139,22 @@ class Home extends React.Component<Props> {
             </div>
             <div className="row">
               <div className="col">
-                <EventCard
-                  date={new Date('jan 21 2019')}
-                  time="November 21st, 7pm"
-                  description="This is an event description."
-                  title="Event title here."
-                />
-                <EventCard
-                  date={new Date('nov 21 2019')}
-                  time="November 21st, 7pm"
-                  description="This is an event description."
-                  title="Event title here. This one has a long title"
-                />
+                {events.data.map(i => (
+                  <EventCard
+                    date={new Date(i.date)}
+                    time={i.time}
+                    description={i.excerpt}
+                    title={i.title}
+                    slug={i.slug}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col text-center">
+                <Button isLink to="/gather/events">
+                  View All
+                </Button>
               </div>
             </div>
           </div>
@@ -142,15 +167,35 @@ class Home extends React.Component<Props> {
         <Section bg="white">
           <div className="container">
             <div className="row">
-              <div className="col-md-4">
-                <PostCard
-                  title="A sample blog post"
-                  excerpt="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui, nemo eum? Pariatur natus amet ullam id voluptate harum officiis qui."
-                  img={img1}
-                />
+              <div className="col">
+                <H2center>Latest News</H2center>
               </div>
-              <div className="col-md-4" />
-              <div className="col-md-4" />
+            </div>
+            <div className="row">
+              <div className="col">
+                <Card.CardGrid>
+                  {news &&
+                    news.data
+                      .filter((i, ind) => ind < 3)
+                      .map((i: ProcessedNews) => (
+                        <Card.Card
+                          key={i.title}
+                          isLink
+                          link={`/connect/news/${i.slug}`}
+                          title={i.title}
+                          excerpt={i.excerpt}
+                          img={i.img}
+                        />
+                      ))}
+                </Card.CardGrid>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col text-center">
+                <Button isLink to="/connect/news">
+                  View More News
+                </Button>
+              </div>
             </div>
           </div>
         </Section>
@@ -164,11 +209,15 @@ class Home extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-  pages: state.pages.allPages
+  pages: state.pages.allPages,
+  news: state.news.allNews,
+  events: state.events.allEvents
 })
 
 const MapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchPages: () => fetchAllPages()(dispatch)
+  fetchPages: () => fetchAllPages()(dispatch),
+  fetchNews: () => fetchAllNews()(dispatch),
+  fetchEvents: () => fetchAllEvents()(dispatch)
 })
 
 export default connect(

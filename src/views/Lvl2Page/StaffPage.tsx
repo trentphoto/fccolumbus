@@ -1,22 +1,8 @@
 import React from 'react'
 import staff from '../../metadata/staff'
-import StaffCard from '../../blocks/StaffCard'
-import styled from '../../styled-components'
+import { Card } from '../../blocks'
 import Section from '../../components/layout/Section'
 import StaffSlideOut from '../../blocks/StaffSlideOut'
-
-const Grid = styled.div`
-  display: grid;
-  grid-gap: 20px;
-
-  @media (min-width: 768px) and (max-width: 991px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (min-width: 992px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-`
 
 class StaffPage extends React.Component {
   state = {
@@ -44,15 +30,18 @@ class StaffPage extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col">
-              <Grid>
-                {staff.map(i => (
-                  <StaffCard
-                    key={i.name}
-                    member={i}
-                    onClick={this.updateMember.bind(this, i)}
-                  />
-                ))}
-              </Grid>
+              <Card.CardGrid>
+                {staff &&
+                  staff.map(i => (
+                    <Card.Card
+                      key={i.name}
+                      title={i.name}
+                      excerpt={i.title}
+                      img={i.img}
+                      onClick={this.updateMember.bind(this, i)}
+                    />
+                  ))}
+              </Card.CardGrid>
             </div>
           </div>
         </div>

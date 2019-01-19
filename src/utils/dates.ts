@@ -1,5 +1,18 @@
-export function getMonthName(x: number) {
-  // const names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+export function getMonthName(x: number, full?: boolean) {
+  const fullNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ]
   const names = [
     'Jan',
     'Feb',
@@ -14,6 +27,8 @@ export function getMonthName(x: number) {
     'Nov',
     'Dec'
   ]
+
+  if (full) return fullNames[x]
 
   return names[x]
 }

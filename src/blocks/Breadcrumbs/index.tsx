@@ -1,15 +1,17 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { ReduxState } from '../../types/redux'
 import ResponsiveHOC from '../../utils/ResponsiveHOC'
 
 import BreadcrumbsMobile from './BreadcrumbsMobile'
 import BreadcrumbsDesktop from './BreadcrumbsDesktop'
 
 interface Props {
-  parentID: number
-  parent?: WPPage
-  page?: WPPage
+  levels: 3 | 4
+  lvl2Link: string
+  lvl2Label: string
+  lvl3Link?: string
+  lvl3Label: string
+  lvl4Link?: string
+  lvl4Label?: string
 }
 
 const Breadcrumbs = (props: Props) => {
@@ -22,8 +24,4 @@ const Breadcrumbs = (props: Props) => {
   )
 }
 
-const mapStateToProps = (state: ReduxState, ownProps: Props) => ({
-  parent: state.pages.allPages.data.filter(i => i.id === ownProps.parentID)[0]
-})
-
-export default connect(mapStateToProps)(Breadcrumbs)
+export default Breadcrumbs

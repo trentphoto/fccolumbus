@@ -16,7 +16,9 @@ import Footer from '../../components/layout/Footer'
 import styled from '../../styled-components'
 import Section from '../../components/layout/Section'
 import Breadcrumbs from '../../blocks/Breadcrumbs'
-import { StaffPage } from '..'
+import StaffPage from './StaffPage'
+import NewsPage from './NewsPage'
+import EventsPage from './EventsPage'
 
 const Copy = styled.section`
   display: grid;
@@ -83,32 +85,48 @@ class Lvl2Page extends React.Component<Props> {
   }
 
   private Lvl3PageTemplate(page: WPPage) {
-    if (page.id === 19) return <StaffPage />
+    if (page.id === 19) return <StaffPage {...this.props} />
+
+    if (this.props.location.pathname.includes('news'))
+      return (
+        <NewsPage page={page} location={this.props.location} {...this.props} />
+      )
+    if (this.props.location.pathname.includes('events'))
+      return (
+        <EventsPage
+          page={page}
+          location={this.props.location}
+          {...this.props}
+        />
+      )
 
     return (
       <>
         <Helmet>
           <title>{page && page.title.rendered}</title>
         </Helmet>
-        <section className="py-3">
-          <div className="container">
-            <div className="row">
-              <div className="col">
-                <Breadcrumbs parentID={page.parent} page={page && page} />
-              </div>
-            </div>
-          </div>
-        </section>
+        <Breadcrumbs
+          levels={3}
+          lvl2Link={
+            '/' +
+            this.props.pages.filter((i: WPPage) => i.id === page.parent)[0].slug
+          }
+          lvl2Label={
+            this.props.pages.filter((i: WPPage) => i.id === page.parent)[0]
+              .title.rendered
+          }
+          lvl3Label={page && page.title.rendered}
+        />
         <Section>
           <div className="container">
             <div className="row">
               <div className="col">
-                <H1>{page && page.title.rendered}</H1>
                 <img
                   src={img1}
                   alt={page && page.title.rendered}
-                  className="img-fluid w-50 pl-3 pb-3 float-right"
+                  className="img-fluid w-50 pl-5 pb-3 float-right"
                 />
+                <H1>{page && page.title.rendered}</H1>
                 <div
                   className="content"
                   dangerouslySetInnerHTML={{
@@ -124,11 +142,11 @@ class Lvl2Page extends React.Component<Props> {
   }
 
   public render() {
-    const { subpages, match } = this.props
+    const { subpages, match, location } = this.props
     return (
       <div className="page">
         <Navbar />
-        <Switch>
+        <Switch location={location}>
           <Route exact path={match.path} render={this.Lvl2PageTemplate} />
           {subpages &&
             subpages.map(i => (
