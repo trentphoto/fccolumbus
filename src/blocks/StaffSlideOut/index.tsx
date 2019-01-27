@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from '../../styled-components'
-import { Exit } from '../Takeover/Exit'
+import { StyledExit } from '../MenuTakeover/Exit'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Content } from '..'
 
 const Parent = styled.div`
   position: fixed;
@@ -49,13 +50,14 @@ const StyledStaffSlideOut = styled.div`
   height: 100%;
   width: 100%;
   max-width: 500px;
+  overflow-y: scroll;
   transform: translateX(100%);
   transition: ${props =>
       props.theme.timing.duration.fast + ' ' + props.theme.timing.curve}
     all;
 `
 
-const ExitDark = styled(Exit)`
+const ExitDark = styled(StyledExit)`
   background-color: ${props => props.theme.lightgray};
   color: #000;
   &:hover {
@@ -77,6 +79,13 @@ const StaffSlideOut = (props: Props) => (
       <ExitDark onClick={props.close}>
         <FontAwesomeIcon icon="times" size="2x" />
       </ExitDark>
+      {props.member && (
+        <img
+          src={props.member.img}
+          alt={props.member.name}
+          className="img-fluid w-50 mb-3"
+        />
+      )}
       <h1>{props.member && props.member.name}</h1>
       <h3 className="mb-3">{props.member && props.member.title}</h3>
       <p>
@@ -87,11 +96,7 @@ const StaffSlideOut = (props: Props) => (
         <FontAwesomeIcon className="mr-2" icon="envelope" />
         <span>{props.member && props.member.email}</span>
       </p>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: props.member ? props.member.bio : ''
-        }}
-      />
+      <Content content={props.member ? props.member.bio : ''} />
     </StyledStaffSlideOut>
   </Parent>
 )

@@ -21,7 +21,9 @@ export const fetchAllNews = () => async (dispatch: Dispatch) => {
       date: i.date,
       content: i.content.rendered,
       excerpt: i.acf.excerpt,
-      img: urlBase + i._embedded['wp:featuredmedia'][0].source_url
+      img: i._embedded
+        ? urlBase + i._embedded['wp:featuredmedia'][0].source_url
+        : ''
     }))
 
     dispatch(Actions.fetchAllNewsSuccess(newsProcessed))

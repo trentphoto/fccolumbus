@@ -1,27 +1,20 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 
-import { fetchAllPages } from '../../../modules/ducks/pages/operations'
-import { fetchAllNews } from '../../../modules/ducks/news/operations'
-import { fetchAllEvents } from '../../../modules/ducks/events/operations'
 import { ReduxState } from '../../../types/redux'
-import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import Section from '../../../components/layout/Section'
-import { Card, Breadcrumbs } from '../../../blocks'
+import { Card, Breadcrumbs, Section, Content } from '../../../blocks'
 import { RouteComponentProps } from 'react-router'
 import { Switch, Route } from 'react-router'
 
 import SingleTemplateNews from './SingleTemplateNews'
+import { wrapTitle } from '../../../utils/withSEO'
 
 interface Props extends RouteComponentProps<MatchParams> {
-  page: WPPage
+  page: ProcessedPage
   pages: ReduxState['pages']['allPages']
   news: ReduxState['news']['allNews']
   events: ReduxState['events']['allEvents']
-  fetchPages: () => Promise<void>
-  fetchNews: () => Promise<void>
-  fetchEvents: () => Promise<void>
 }
 
 interface MatchParams {
@@ -29,29 +22,12 @@ interface MatchParams {
 }
 
 class NewsPage extends React.Component<Props> {
-  public componentDidMount() {
-    const {
-      pages,
-      fetchPages,
-      news,
-      fetchNews,
-      events,
-      fetchEvents
-    } = this.props
-    if (!pages || pages.data.length === 0) {
-      fetchPages()
-    }
-    if (!news || news.data.length === 0) {
-      fetchNews()
-    }
-    if (!events || events.data.length === 0) {
-      fetchEvents()
-    }
-  }
-
   private MainTemplate = () => {
     return (
       <>
+        <Helmet>
+          <title>{wrapTitle('News')}</title>
+        </Helmet>
         <Breadcrumbs
           levels={3}
           lvl2Label="Connect"
@@ -64,11 +40,7 @@ class NewsPage extends React.Component<Props> {
             <div className="row">
               <div className="col">
                 <h1>First Church News</h1>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: this.props.page.content.rendered
-                  }}
-                />
+                <Content content={this.props.page.content} />
               </div>
             </div>
             <div className="row">
@@ -95,16 +67,10 @@ class NewsPage extends React.Component<Props> {
 
   public render() {
     return (
-      <>
-        <Helmet>
-          <title>First Church News</title>
-        </Helmet>
-
-        <Switch location={this.props.location}>
-          <Route exact path="/connect/news" render={this.MainTemplate} />
-          <Route path={`/connect/news/:slug`} component={SingleTemplateNews} />
-        </Switch>
-      </>
+      <Switch location={this.props.location}>
+        <Route exact path="/connect/news" render={this.MainTemplate} />
+        <Route path={`/connect/news/:slug`} component={SingleTemplateNews} />
+      </Switch>
     )
   }
 }
@@ -115,13 +81,4 @@ const mapStateToProps = (state: ReduxState) => ({
   events: state.events.allEvents
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchPages: () => fetchAllPages()(dispatch),
-  fetchNews: () => fetchAllNews()(dispatch),
-  fetchEvents: () => fetchAllEvents()(dispatch)
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NewsPage)
+export default connect(mapStateToProps)(NewsPage)

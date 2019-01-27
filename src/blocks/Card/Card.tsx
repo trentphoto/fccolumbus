@@ -71,8 +71,8 @@ const Card: React.SFC<Props> = ({
           </ImgWrapper>
         )}
         <Content>
-          <h3>{title}</h3>
-          <p>{excerpt}</p>
+          <h3 dangerouslySetInnerHTML={{ __html: title }} />
+          <p dangerouslySetInnerHTML={{ __html: excerpt }} />
         </Content>
       </StyledCard>
     )
@@ -83,8 +83,8 @@ const Card: React.SFC<Props> = ({
         <img src={img} alt={title} />
       </ImgWrapper>
       <Content>
-        <h3>{title}</h3>
-        <p>{excerpt}</p>
+        <h3 dangerouslySetInnerHTML={{ __html: title }} />
+        <p dangerouslySetInnerHTML={{ __html: excerpt }} />
       </Content>
     </StyledCard>
   )

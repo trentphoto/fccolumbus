@@ -1,13 +1,15 @@
 declare interface ProcessedEvent {
   title: string
   id: number
-  date: string
+  date: Date
   time: string
   location: string
   slug: string
   content: string
   excerpt: string
   img?: string
+  link?: string
+  type?: string
 }
 
 // ---------------

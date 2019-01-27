@@ -1,18 +1,33 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom'
-import './404.css'
 import Helmet from 'react-helmet'
+import { Button, FooterCTA, Footer, Navbar, Section } from '../../blocks'
 
 const NotFound = () => (
-  <div className="page not-found">
+  <div className="page">
     <Helmet>
-      <title>404 Nnot Found</title>
+      <title>Page not found</title>
     </Helmet>
-    <div className="content-container">
-      <h1>404</h1>
-      <h3>Page not Found</h3>
-      <Link to="/">go back home</Link>
-    </div>
+    <Navbar />
+
+    <Section>
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <h1>Page not found.</h1>
+            <p>
+              We're sorry for the error. You can go to our homepage or explore
+              via the Menu button at the top right of this page.
+            </p>
+            <Button isLink to="/">
+              Go Home?
+            </Button>
+          </div>
+        </div>
+      </div>
+    </Section>
+
+    <FooterCTA />
+    <Footer />
   </div>
 )
 

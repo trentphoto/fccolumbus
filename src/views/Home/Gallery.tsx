@@ -1,10 +1,9 @@
 import React from 'react'
 import styled from '../../styled-components'
 
-import img1 from '../../img/fcc-41.jpg'
-
-import Section from '../../components/layout/Section'
+import { Section } from '../../blocks'
 import H2center from '../../components/layout/H2center'
+import { siteBase } from '../../config'
 
 const StyledGallery = styled.div`
   img {
@@ -41,11 +40,31 @@ const Gallery: React.SFC = () => (
       <div className="row">
         <div className="col">
           <StyledGallery>
-            <img src={img1} alt="First Church Columbus" className="img-fluid" />
-            <img src={img1} alt="First Church Columbus" className="img-fluid" />
-            <img src={img1} alt="First Church Columbus" className="img-fluid" />
-            <img src={img1} alt="First Church Columbus" className="img-fluid" />
-            <img src={img1} alt="First Church Columbus" className="img-fluid" />
+            <img
+              src={`${siteBase}/app/uploads/2019/01/fcc-53.jpg`}
+              alt="First Church Columbus"
+              className="img-fluid"
+            />
+            <img
+              src={`${siteBase}/app/uploads/2019/01/fcc-5.jpg`}
+              alt="First Church Columbus"
+              className="img-fluid"
+            />
+            <img
+              src={`${siteBase}/app/uploads/2019/01/fcc-46.jpg`}
+              alt="First Church Columbus"
+              className="img-fluid"
+            />
+            <img
+              src={`${siteBase}/app/uploads/2019/01/fcc-104.jpg`}
+              alt="First Church Columbus"
+              className="img-fluid"
+            />
+            <img
+              src={`${siteBase}/app/uploads/2019/01/fcc-13.jpg`}
+              alt="First Church Columbus"
+              className="img-fluid"
+            />
           </StyledGallery>
         </div>
       </div>

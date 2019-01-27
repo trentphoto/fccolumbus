@@ -1,3 +1,21 @@
 .page {
   width: 100%;
 }
+
+/* About First Church - red box */
+@media (min-width: 992px) {
+  .TextBox {
+    transform: translateX(-30px);
+  }
+  .TextBox-img {
+    transform: translateX(30px);
+  }
+}
+
+.Testimonials .text p {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.25rem 1rem;
+  font-size: 1.4rem;
+  background-color: #8e1212;
+}

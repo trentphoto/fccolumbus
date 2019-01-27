@@ -38,16 +38,20 @@ const Menu: MenuItem[] = [
     slug: 'connect',
     subpages: [
       {
-        title: "Pastor's Blog",
-        slug: 'pastors-blog'
+        title: 'Contact Us',
+        slug: 'contact-us'
+      },
+      {
+        title: 'Join',
+        slug: 'join'
       },
       {
         title: 'News',
         slug: 'news'
       },
       {
-        title: 'Contact Us',
-        slug: 'contact-us'
+        title: "Pastor's Blog",
+        slug: 'pastor-tims-blog'
       },
       {
         title: 'Building Use',
@@ -64,6 +68,10 @@ const Menu: MenuItem[] = [
     slug: 'gather',
     subpages: [
       {
+        title: 'Worship',
+        slug: 'worship'
+      },
+      {
         title: 'Events',
         slug: 'events'
       },
@@ -74,66 +82,32 @@ const Menu: MenuItem[] = [
       {
         title: 'Social Justice Park',
         slug: 'social-justice-park'
-      },
-      {
-        title: 'Worship',
-        slug: 'worship'
       }
     ]
-  },
-  {
-    title: 'Give',
-    slug: 'give'
   },
   {
     title: 'Grow',
     slug: 'grow',
     subpages: [
       {
-        title: 'Adult Learning',
-        slug: 'adult-learning'
+        title: 'Choirs',
+        slug: 'choirs'
       },
       {
         title: 'Children',
         slug: 'children'
       },
       {
-        title: 'Choirs',
-        slug: 'choirs'
+        title: 'Youth',
+        slug: 'youth'
+      },
+      {
+        title: 'Adult Learning',
+        slug: 'adult-learning'
       },
       {
         title: 'College Connections',
         slug: 'college-connections'
-      },
-      {
-        title: 'Join',
-        slug: 'join'
-      },
-      {
-        title: 'Youth',
-        slug: 'youth'
-      }
-    ]
-  },
-  {
-    title: 'Lead',
-    slug: 'lead',
-    subpages: [
-      {
-        title: 'Choir Participants',
-        slug: 'choir-participants'
-      },
-      {
-        title: 'Church Council',
-        slug: 'church-council'
-      },
-      {
-        title: 'Deacons',
-        slug: 'deacons'
-      },
-      {
-        title: 'Worship Leadership',
-        slug: 'worship-leadership'
       }
     ]
   },
@@ -178,6 +152,32 @@ const Menu: MenuItem[] = [
         slug: 'scared-earth'
       }
     ]
+  },
+  {
+    title: 'Lead',
+    slug: 'lead',
+    subpages: [
+      {
+        title: 'Worship Leadership',
+        slug: 'worship-leadership'
+      },
+      {
+        title: 'Choir Participants',
+        slug: 'choir-participants'
+      },
+      {
+        title: 'Deacons',
+        slug: 'deacons'
+      },
+      {
+        title: 'Church Council',
+        slug: 'church-council'
+      }
+    ]
+  },
+  {
+    title: 'Give',
+    slug: 'give'
   }
 ]
 

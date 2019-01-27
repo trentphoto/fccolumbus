@@ -2,6 +2,7 @@ import api from '../../api'
 import { Actions } from './actions'
 import { Dispatch } from 'redux'
 import { urlBase } from '../../../config'
+import sortEventsByDate from '../../utils/sortEventsByDate'
 
 export const fetchAllEventsRequest = () => Actions.fetchAllEventsRequest()
 export const fetchAllEventsSuccess = (events: ProcessedEvent[]) =>
@@ -17,7 +18,7 @@ export const fetchAllEvents = () => async (dispatch: Dispatch) => {
     const eventsProcessed = events.map((i: WPEvent) => ({
       title: i.title.rendered,
       id: i.id,
-      date: i.acf.date,
+      date: new Date(i.acf.date),
       time: i.acf.time,
       location: i.acf.location,
       slug: i.slug,
@@ -28,7 +29,9 @@ export const fetchAllEvents = () => async (dispatch: Dispatch) => {
         : undefined
     }))
 
-    dispatch(Actions.fetchAllEventsSuccess(eventsProcessed))
+    const eventsProcessedSorted = eventsProcessed.sort(sortEventsByDate)
+
+    dispatch(Actions.fetchAllEventsSuccess(eventsProcessedSorted))
 
     return events
   } catch (error) {

@@ -18,7 +18,7 @@ const allPages = (
     case types.FETCH_ALL_PAGES_REQUEST:
       return { error: null, loading: true, data: [] }
     case types.FETCH_ALL_PAGES_SUCCESS:
-      return { ...state, loading: false, data: action.payload.pages }
+      return { error: null, loading: true, data: action.payload.pages }
     case types.FETCH_ALL_PAGES_FAIL:
       return { ...state, loading: false, error: action.payload.error }
     default: {

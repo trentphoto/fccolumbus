@@ -4,7 +4,7 @@ import * as types from './types'
 
 const fetchAllPages = {
   fetchAllPagesRequest: () => createAction(types.FETCH_ALL_PAGES_REQUEST),
-  fetchAllPagesSuccess: (pages: WPPage[]) =>
+  fetchAllPagesSuccess: (pages: ProcessedPage[]) =>
     createAction(types.FETCH_ALL_PAGES_SUCCESS, { pages }),
   fetchAllPagesFail: (error: string) =>
     createAction(types.FETCH_ALL_PAGES_FAIL, { error })

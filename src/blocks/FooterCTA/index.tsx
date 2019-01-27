@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from '../../styled-components'
-import Section from '../../components/layout/Section'
+import { Section } from '..'
 import H3 from '../../components/layout/H3'
 
 const StyledButton = styled.button`

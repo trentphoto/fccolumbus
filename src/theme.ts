@@ -6,6 +6,14 @@ export default interface ThemeInterface {
   white: string
   dark: string
   timing: Timing
+  zindex: Zindex
+}
+
+interface Zindex {
+  menuTakeover: number
+  searchTakeover: number
+  navbar: number
+  slideOut: number
 }
 
 interface Timing {

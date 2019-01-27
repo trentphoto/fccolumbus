@@ -4,21 +4,27 @@ import Helmet from 'react-helmet'
 import { connect } from 'react-redux'
 import { ReduxState } from '../../types/redux'
 import { Dispatch } from 'redux'
-import { fetchAllPages } from '../../modules/ducks/pages/operations'
 import { RouteComponentProps } from 'react-router'
 import { Switch, Route } from 'react-router-dom'
-import Navbar from '../../blocks/Navbar'
 import H1 from '../../components/layout/H1'
-import SubpageNavBoxes from '../../blocks/SubpageNavBoxes'
 import img1 from '../../img/fcc-41.jpg'
-import FooterCTA from '../../blocks/FooterCTA'
-import Footer from '../../components/layout/Footer'
 import styled from '../../styled-components'
-import Section from '../../components/layout/Section'
-import Breadcrumbs from '../../blocks/Breadcrumbs'
+import {
+  Breadcrumbs,
+  Content,
+  Footer,
+  FooterCTA,
+  Navbar,
+  Section,
+  SubpageNavBoxes
+} from '../../blocks'
+
 import StaffPage from './StaffPage'
 import NewsPage from './NewsPage'
 import EventsPage from './EventsPage'
+import { fetchEverything } from '../../modules/utils/fetchEverything'
+import { wrapTitle } from '../../utils/withSEO'
+import PastorsBlogPage from './PastorsBlogPage'
 
 const Copy = styled.section`
   display: grid;
@@ -30,9 +36,9 @@ const Copy = styled.section`
 
 interface Props extends RouteComponentProps<MatchParams> {
   pages: ReduxState['pages']['allPages']['data']
-  page: WPPage
-  subpages: WPPage[]
-  fetchPages: () => Promise<void>
+  page: ProcessedPage
+  subpages: ProcessedPage[]
+  fetchAll: () => any
 }
 
 interface MatchParams {
@@ -41,10 +47,10 @@ interface MatchParams {
 
 class Lvl2Page extends React.Component<Props> {
   public componentDidMount() {
-    const { pages, fetchPages } = this.props
+    const { pages, fetchAll } = this.props
 
     if (pages.length === 0) {
-      fetchPages()
+      fetchAll()
     }
   }
 
@@ -53,22 +59,17 @@ class Lvl2Page extends React.Component<Props> {
     return (
       <>
         <Helmet>
-          <title />
+          <title>{page && wrapTitle(page.title)}</title>
         </Helmet>
         <Copy>
           <div className="p-5">
-            <H1>{page ? page.title.rendered : 'Loading...'}</H1>
-            <div
-              className="content"
-              dangerouslySetInnerHTML={{
-                __html: page && page.content.rendered
-              }}
-            />
+            <H1>{page ? page.title : 'Loading...'}</H1>
+            <Content content={page && page.content} />
           </div>
-          <div className="">
+          <div>
             <img
-              src={img1}
-              alt={page && page.title.rendered}
+              src={page && (page.img ? page.img : img1)}
+              alt={page && page.title}
               className="img-fluid"
             />
           </div>
@@ -84,8 +85,10 @@ class Lvl2Page extends React.Component<Props> {
     )
   }
 
-  private Lvl3PageTemplate(page: WPPage) {
+  private Lvl3PageTemplate(page: ProcessedPage) {
     if (page.id === 19) return <StaffPage {...this.props} />
+
+    if (page.id === 297) return <PastorsBlogPage {...this.props} />
 
     if (this.props.location.pathname.includes('news'))
       return (
@@ -103,36 +106,34 @@ class Lvl2Page extends React.Component<Props> {
     return (
       <>
         <Helmet>
-          <title>{page && page.title.rendered}</title>
+          <title>{page && wrapTitle(page.title)}</title>
         </Helmet>
         <Breadcrumbs
           levels={3}
           lvl2Link={
             '/' +
-            this.props.pages.filter((i: WPPage) => i.id === page.parent)[0].slug
+            this.props.pages.filter(
+              (i: ProcessedPage) => i.id === page.parent
+            )[0].slug
           }
           lvl2Label={
-            this.props.pages.filter((i: WPPage) => i.id === page.parent)[0]
-              .title.rendered
+            this.props.pages.filter(
+              (i: ProcessedPage) => i.id === page.parent
+            )[0].title
           }
-          lvl3Label={page && page.title.rendered}
+          lvl3Label={page && page.title}
         />
         <Section>
           <div className="container">
             <div className="row">
               <div className="col">
                 <img
-                  src={img1}
-                  alt={page && page.title.rendered}
+                  src={page && page.img ? page.img : img1}
+                  alt={page && page.title}
                   className="img-fluid w-50 pl-5 pb-3 float-right"
                 />
-                <H1>{page && page.title.rendered}</H1>
-                <div
-                  className="content"
-                  dangerouslySetInnerHTML={{
-                    __html: page && page.content.rendered
-                  }}
-                />
+                <H1>{page && page.title}</H1>
+                <Content content={page && page.content} />
               </div>
             </div>
           </div>
@@ -143,6 +144,7 @@ class Lvl2Page extends React.Component<Props> {
 
   public render() {
     const { subpages, match, location } = this.props
+
     return (
       <div className="page">
         <Navbar />
@@ -168,18 +170,18 @@ class Lvl2Page extends React.Component<Props> {
 const mapStateToProps = (state: ReduxState, ownProps: any) => ({
   pages: state.pages.allPages.data,
   page: state.pages.allPages.data.filter(
-    (i: WPPage) => i.slug === ownProps.match.path.split('/')[1]
+    (i: ProcessedPage) => i.slug === ownProps.match.path.split('/')[1]
   )[0],
-  subpages: state.pages.allPages.data.filter((i: WPPage) => {
+  subpages: state.pages.allPages.data.filter((i: ProcessedPage) => {
     const parentPage = state.pages.allPages.data.filter(
-      (i: WPPage) => i.slug === ownProps.match.path.split('/')[1]
+      (i: ProcessedPage) => i.slug === ownProps.match.path.split('/')[1]
     )[0]
     return i.parent === parentPage.id
   })
 })
 
 const MapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchPages: () => fetchAllPages()(dispatch)
+  fetchAll: () => fetchEverything(dispatch)
 })
 
 export default connect(

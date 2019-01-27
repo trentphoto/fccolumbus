@@ -63,14 +63,19 @@ const BreadcrumbsDesktop = (props: Props) => (
           ) : (
             <>
               <Link to={props.lvl3Link ? props.lvl3Link : ''}>
-                {props.lvl3Label}
+                <span dangerouslySetInnerHTML={{ __html: props.lvl3Label }} />
               </Link>
               <Divider>
                 <FontAwesomeIcon icon="chevron-right" />
               </Divider>
 
               {/* level 4 */}
-              <div className="p-3">{props.lvl4Label}</div>
+              <div
+                className="p-3"
+                dangerouslySetInnerHTML={{
+                  __html: props.lvl4Label ? props.lvl4Label : ''
+                }}
+              />
             </>
           )}
         </div>

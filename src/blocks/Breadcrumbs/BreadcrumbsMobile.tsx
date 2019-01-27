@@ -41,7 +41,11 @@ const BreadcrumbsMobile = (props: Props) => (
         <div className="col">
           <Link to={props.lvl3Link ? props.lvl3Link : props.lvl2Link}>
             <FontAwesomeIcon icon="chevron-left" className="mr-3" />
-            {props.levels === 3 ? props.lvl2Label : props.lvl3Label}
+            <span
+              dangerouslySetInnerHTML={{
+                __html: props.levels === 3 ? props.lvl2Label : props.lvl3Label
+              }}
+            />
           </Link>
         </div>
       </div>

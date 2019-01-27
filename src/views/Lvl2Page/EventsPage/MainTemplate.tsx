@@ -1,16 +1,13 @@
 import React from 'react'
-import { Breadcrumbs, Card } from '../../../blocks'
-import Section from '../../../components/layout/Section'
+import { Breadcrumbs, Card, Section, Content } from '../../../blocks'
 import { ReduxState } from '../../../types/redux'
+import withSEO from '../../../utils/withSEO'
 
 interface Props {
   page: WPPage
   pages: ReduxState['pages']['allPages']
   news: ReduxState['news']['allNews']
   events: ReduxState['events']['allEvents']
-  fetchPages: () => Promise<void>
-  fetchNews: () => Promise<void>
-  fetchEvents: () => Promise<void>
 }
 
 class MainTemplate extends React.Component<Props> {
@@ -29,11 +26,7 @@ class MainTemplate extends React.Component<Props> {
             <div className="row">
               <div className="col">
                 <h1>Upcoming Events</h1>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: this.props.page.content.rendered
-                  }}
-                />
+                <Content content={this.props.page.content.rendered} />
               </div>
             </div>
             <div className="row">
@@ -59,4 +52,4 @@ class MainTemplate extends React.Component<Props> {
   }
 }
 
-export default MainTemplate
+export default withSEO(MainTemplate, { title: 'Events' })

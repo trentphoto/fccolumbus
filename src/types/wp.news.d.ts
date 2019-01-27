@@ -6,6 +6,8 @@ declare interface ProcessedNews {
   content: string
   excerpt: string
   img: string
+  type?: string
+  link?: string
 }
 
 // ------------------------ pre-processed API response below

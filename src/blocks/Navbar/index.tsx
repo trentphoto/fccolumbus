@@ -3,8 +3,10 @@ import styled from '../../styled-components'
 import bgImg from '../../img/fcc-103.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
-import Takeover from '../../blocks/Takeover'
 import NavButton from './NavButton'
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+import { openSearch, openMenu } from '../../modules/ducks/layout/operations'
 
 const StyledNavbar = styled.nav`
   display: flex;
@@ -31,11 +33,10 @@ const StyledNavbar = styled.nav`
     top: 0;
     background-color: ${props => props.theme.redDark};
     opacity: 0.9;
-    z-index: 1;
   }
 
   & > * {
-    z-index: 500;
+    z-index: 1;
     position: relative;
   }
 `
@@ -58,22 +59,87 @@ const Buttons = styled.div`
   }
 `
 
-const Navbar: React.SFC = () => (
-  <StyledNavbar>
-    <Link to="/">
-      <Lockup>
-        First Congregational Church <br /> UCC Columbus
-      </Lockup>
-    </Link>
-    <Buttons>
-      <NavButton light className="">
-        <FontAwesomeIcon icon="search" className="mr-3" />
-        Search
-      </NavButton>
+interface Props {
+  openSearch: () => any
+  openMenu: () => any
+}
 
-      <Takeover />
-    </Buttons>
-  </StyledNavbar>
-)
+class Navbar extends React.Component<Props> {
+  private SearchNavButtonRef = React.createRef<NavButton>()
+  private MenuNavButtonRef = React.createRef<NavButton>()
 
-export default Navbar
+  componentDidMount() {
+    document.addEventListener('keydown', this.openMenuWithEnter, false)
+    document.addEventListener('keydown', this.openSearchWithEnter, false)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.openMenuWithEnter, false)
+    document.removeEventListener('keydown', this.openSearchWithEnter, false)
+  }
+
+  openMenuWithEnter = (e: any) => {
+    if (
+      this.MenuNavButtonRef.current &&
+      document.activeElement && // because this and the line above could possibly be null
+      this.MenuNavButtonRef.current.props.id === document.activeElement.id &&
+      e.keyCode === 13
+    ) {
+      this.props.openMenu()
+    }
+  }
+
+  openSearchWithEnter = (e: any) => {
+    if (
+      this.SearchNavButtonRef.current &&
+      document.activeElement && // because this and the line above could possibly be null
+      this.SearchNavButtonRef.current.props.id === document.activeElement.id &&
+      e.keyCode === 13
+    ) {
+      this.props.openSearch()
+    }
+  }
+
+  render() {
+    return (
+      <StyledNavbar>
+        <Link to="/">
+          <Lockup>
+            First Congregational Church <br /> UCC Columbus
+          </Lockup>
+        </Link>
+        <Buttons>
+          <NavButton
+            light
+            onClick={this.props.openSearch}
+            ref={this.SearchNavButtonRef}
+            id="SearchNavButton"
+          >
+            <FontAwesomeIcon icon="search" className="mr-3" />
+            Search
+          </NavButton>
+
+          <NavButton
+            light
+            onClick={this.props.openMenu}
+            ref={this.MenuNavButtonRef}
+            id="MenuNavButton"
+          >
+            <FontAwesomeIcon icon="bars" className="mr-3" />
+            Menu
+          </NavButton>
+        </Buttons>
+      </StyledNavbar>
+    )
+  }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  openSearch: () => openSearch()(dispatch),
+  openMenu: () => openMenu()(dispatch)
+})
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Navbar)

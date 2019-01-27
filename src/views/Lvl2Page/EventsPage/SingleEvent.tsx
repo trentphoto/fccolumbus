@@ -1,13 +1,16 @@
 import React from 'react'
-import { Breadcrumbs, Card } from '../../../blocks'
-import Section from '../../../components/layout/Section'
+
+import { Breadcrumbs, Button, Card, Section, Content } from '../../../blocks'
 import H1 from '../../../components/layout/H1'
+import H2center from '../../../components/layout/H2center'
+
+import styled from '../../../styled-components'
 import { ReduxState } from '../../../types/redux'
 import { RouteComponentProps } from 'react-router'
-import H2center from '../../../components/layout/H2center'
-import Button from '../../../components/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import styled from '../../../styled-components'
+import Helmet from 'react-helmet'
+import { wrapTitle } from '../../../utils/withSEO'
+import { getDayName, getMonthName } from '../../../utils/dates'
 
 const InfoBox = styled.p`
   background-color: ${props => props.theme.lightgray};
@@ -20,13 +23,10 @@ const InfoBox = styled.p`
 `
 
 interface Props extends RouteComponentProps<MatchParams> {
-  page: WPPage
+  page: ProcessedPage
   pages: ReduxState['pages']['allPages']
   news: ReduxState['news']['allNews']
   events: ReduxState['events']['allEvents']
-  fetchPages: () => Promise<void>
-  fetchNews: () => Promise<void>
-  fetchEvents: () => Promise<void>
 }
 
 interface MatchParams {
@@ -41,8 +41,17 @@ class SingleEvent extends React.Component<Props> {
 
     if (!evt) return null
 
+    const dateString = `${getDayName(evt.date.getDay())}, ${getMonthName(
+      evt.date.getMonth(),
+      true
+    )} ${evt.date.getDate()}, ${evt.date.getFullYear()}`
+
     return (
       <>
+        <Helmet>
+          <title>{wrapTitle(evt.title)}</title>
+        </Helmet>
+
         <Breadcrumbs
           levels={4}
           lvl2Label="Gather"
@@ -70,7 +79,7 @@ class SingleEvent extends React.Component<Props> {
                       className="mr-3"
                     />
                   </span>
-                  {evt.date}
+                  {dateString}
                 </InfoBox>
                 <InfoBox>
                   <span>
@@ -88,10 +97,7 @@ class SingleEvent extends React.Component<Props> {
                   </span>
                   {evt.location}
                 </InfoBox>
-                <div
-                  className="content"
-                  dangerouslySetInnerHTML={{ __html: evt.content }}
-                />
+                <Content content={evt.content} />
               </div>
             </div>
           </div>

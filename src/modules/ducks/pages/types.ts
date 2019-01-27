@@ -6,7 +6,7 @@ export interface PageState {
   allPages: {
     error: string | null
     loading: boolean
-    data: WPPage[]
+    data: ProcessedPage[]
   }
   page?: WPPage
 }

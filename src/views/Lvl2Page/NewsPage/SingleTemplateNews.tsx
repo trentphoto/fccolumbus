@@ -3,26 +3,22 @@
 // if posts are not loaded it should load all posts and other site data.
 
 import React from 'react'
-import { Breadcrumbs, Card } from '../../../blocks'
-import Section from '../../../components/layout/Section'
 import { RouteComponentProps } from 'react-router'
 import { connect } from 'react-redux'
 import { ReduxState } from '../../../types/redux'
-import { Dispatch } from 'redux'
-import { fetchAllNews } from '../../../modules/ducks/news/operations'
-import { fetchAllPages } from '../../../modules/ducks/pages/operations'
 import { getMonthName, getDayName } from '../../../utils/dates'
+
+import { Breadcrumbs, Button, Card, Section, Content } from '../../../blocks'
 import H1 from '../../../components/layout/H1'
-import SingleFeaturedImage from './SingleFeaturedImage'
 import H2center from '../../../components/layout/H2center'
-import Button from '../../../components/Button'
+import SingleFeaturedImage from './SingleFeaturedImage'
+import Helmet from 'react-helmet'
+import { wrapTitle } from '../../../utils/withSEO'
 
 interface Props extends RouteComponentProps<MatchParams> {
   pages: ReduxState['pages']['allPages']['data']
   news: ReduxState['news']['allNews']['data']
   newsItem: ProcessedNews
-  fetchPages: () => Promise<void>
-  fetchNews: () => Promise<void>
 }
 
 interface MatchParams {
@@ -30,16 +26,6 @@ interface MatchParams {
 }
 
 class SingleTemplateNews extends React.Component<Props> {
-  public componentDidMount() {
-    const { pages, fetchPages, news, fetchNews } = this.props
-
-    if (pages.length === 0) {
-      fetchPages()
-    }
-    if (news.length === 0) {
-      fetchNews()
-    }
-  }
   render() {
     const { news, newsItem } = this.props
 
@@ -52,6 +38,9 @@ class SingleTemplateNews extends React.Component<Props> {
     )} ${date.getDate()}, ${date.getFullYear()}`
     return (
       <>
+        <Helmet>
+          <title>{wrapTitle(newsItem.title)}</title>
+        </Helmet>
         <Breadcrumbs
           levels={4}
           lvl2Label="Connect"
@@ -74,12 +63,7 @@ class SingleTemplateNews extends React.Component<Props> {
                     height={200}
                   />
                 )}
-                <div
-                  className="content"
-                  dangerouslySetInnerHTML={{
-                    __html: newsItem && newsItem.content
-                  }}
-                />
+                <Content content={newsItem && newsItem.content} />
               </div>
             </div>
           </div>
@@ -134,12 +118,4 @@ const mapStateToProps = (state: ReduxState, ownProps: Props) => ({
   )[0]
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchNews: () => fetchAllNews()(dispatch),
-  fetchPages: () => fetchAllPages()(dispatch)
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SingleTemplateNews)
+export default connect(mapStateToProps)(SingleTemplateNews)

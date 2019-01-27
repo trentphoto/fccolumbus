@@ -1,8 +1,8 @@
 import React from 'react'
 import staff from '../../metadata/staff'
-import { Card } from '../../blocks'
-import Section from '../../components/layout/Section'
+import { Card, Section } from '../../blocks'
 import StaffSlideOut from '../../blocks/StaffSlideOut'
+import withSEO from '../../utils/withSEO'
 
 class StaffPage extends React.Component {
   state = {
@@ -50,4 +50,4 @@ class StaffPage extends React.Component {
   }
 }
 
-export default StaffPage
+export default withSEO(StaffPage, { title: 'Staff' })

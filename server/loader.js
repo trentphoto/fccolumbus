@@ -18,11 +18,17 @@ import createStore from '../dist/modules/store'
 import App from '../dist/App'
 import manifest from '../build/asset-manifest.json'
 
-import { fetchAllPagesSuccess } from '../dist/modules/ducks/pages/operations'
-import api from '../src/modules/api'
+import {
+  fetchAllPagesSuccess,
+  fetchAllPages
+} from '../dist/modules/ducks/pages/operations'
 
 // styled-components stuff
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
+import { fetchAllPosts } from '../dist/modules/ducks/blog/operations'
+import { fetchAllEvents } from '../dist/modules/ducks/events/operations'
+import { fetchAllNews } from '../dist/modules/ducks/news/operations'
+import { fetchAllTestimonials } from '../dist/modules/ducks/testimonials/operations'
 
 // loader
 export default (req, res) => {
@@ -64,8 +70,13 @@ export default (req, res) => {
       const { store } = createStore(req.url)
 
       // async redux actions go here
-      const pages = await api.wp.getAllPages()
-      store.dispatch(fetchAllPagesSuccess(pages))
+      const pages = await fetchAllPages()(store.dispatch) // call this function which returns the array of processedPages
+      const posts = await fetchAllPosts()(store.dispatch)
+      const events = await fetchAllEvents()(store.dispatch)
+      const news = await fetchAllNews()(store.dispatch)
+      const testimonials = await fetchAllTestimonials()(store.dispatch)
+
+      // store.dispatch(fetchAllPagesSuccess(pages)) // this is passed into each function above, which calls the Success function anyway - so we don't need this
 
       const context = {}
       const modules = []
