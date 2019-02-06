@@ -99,6 +99,7 @@ export default (req, res) => {
         then loaded into the correct components and sent as a Promise to be handled below.
         */
       frontloadServerRender(() =>
+        // return renderToString
         renderToString(
           <Loadable.Capture report={m => modules.push(m)}>
             <StyleSheetManager sheet={sheet.instance}>
