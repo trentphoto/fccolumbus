@@ -98,7 +98,7 @@ export default (req, res) => {
         data for that page. we take all that information and compute the appropriate state to send to the user. this is
         then loaded into the correct components and sent as a Promise to be handled below.
         */
-      frontloadServerRender(() => {
+      frontloadServerRender(() =>
         renderToString(
           <Loadable.Capture report={m => modules.push(m)}>
             <StyleSheetManager sheet={sheet.instance}>
@@ -112,7 +112,7 @@ export default (req, res) => {
             </StyleSheetManager>
           </Loadable.Capture>
         )
-      }).then(routeMarkup => {
+      ).then(routeMarkup => {
         if (context.url) {
           // if context has a url property, then we need to handle a rediraction in redux router
           res.writeHead(302, {
