@@ -16,7 +16,8 @@ import {
   FooterCTA,
   Navbar,
   Section,
-  SubpageNavBoxes
+  SubpageNavBoxes,
+  Loader
 } from '../../blocks'
 
 import StaffPage from './StaffPage'
@@ -56,6 +57,7 @@ class Lvl2Page extends React.Component<Props> {
 
   Lvl2PageTemplate = () => {
     const { page, subpages, match } = this.props
+
     return (
       <>
         <Helmet>
@@ -143,7 +145,7 @@ class Lvl2Page extends React.Component<Props> {
   }
 
   public render() {
-    const { subpages, match, location } = this.props
+    const { page, subpages, match, location } = this.props
 
     return (
       <div className="page">
@@ -159,6 +161,9 @@ class Lvl2Page extends React.Component<Props> {
               />
             ))}
         </Switch>
+
+        {/* this displays the Loader on both 2nd and 3rd level pages */}
+        {!page && <Loader />}
 
         <FooterCTA />
         <Footer />

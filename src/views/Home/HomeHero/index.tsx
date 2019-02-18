@@ -10,6 +10,7 @@ import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { openMenu, openSearch } from '../../../modules/ducks/layout/operations'
 import NavButton from '../../../blocks/Navbar/NavButton'
+import { Link } from 'react-router-dom'
 
 const HeroSection = styled('section')`
   display: block;
@@ -21,6 +22,13 @@ const HeroSection = styled('section')`
   background-position: center center;
   color: white;
   text-transform: uppercase;
+
+  @media (max-width: 440px) {
+    height: 650px;
+    .buttons a {
+      margin: 0 1.5rem 0.5rem 1.5rem;
+    }
+  }
 
   &:before {
     content: '';
@@ -41,6 +49,24 @@ const HeroSection = styled('section')`
     position: relative;
     z-index: 2;
   }
+
+  @media (max-width: 1199px) {
+    .icons {
+      margin-left: auto;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .icons .label {
+      display: none;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .icons .label {
+      display: none;
+    }
+  }
 `
 
 const Title = styled('h1')`
@@ -48,6 +74,7 @@ const Title = styled('h1')`
   letter-spacing: 4px;
   text-shadow: 0 0 30px rgba(0, 0, 0, 1);
   margin-bottom: 2rem;
+  word-break: break-word;
 `
 
 interface Props {
@@ -102,6 +129,10 @@ class HomeHero extends React.Component<Props> {
               <TopNav />
 
               <div className="icons d-flex">
+                <NavButton light isLink as={Link} to="/give" className="mr-2">
+                  <FontAwesomeIcon icon="gift" size="lg" />
+                  <span className="label ml-2">Give</span>
+                </NavButton>
                 <NavButton
                   light
                   onClick={this.props.openSearch}
@@ -110,6 +141,7 @@ class HomeHero extends React.Component<Props> {
                   className="mr-2"
                 >
                   <FontAwesomeIcon icon="search" size="lg" />
+                  <span className="label ml-2">Search</span>
                 </NavButton>
                 <NavButton
                   light
@@ -118,6 +150,7 @@ class HomeHero extends React.Component<Props> {
                   id="MenuNavButton"
                 >
                   <FontAwesomeIcon icon="bars" size="lg" />
+                  <span className="label ml-2">Menu</span>
                 </NavButton>
               </div>
             </div>

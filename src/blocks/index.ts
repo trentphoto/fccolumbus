@@ -7,11 +7,11 @@ import EventCard from './EventCard'
 import Footer from './Footer'
 import FooterCTA from './FooterCTA'
 import Loader from './Loader'
+import MenuTakeover from './MenuTakeover'
 import Navbar from './Navbar'
 import SearchTakeover from './SearchTakeover'
 import Section from './Section'
 import SubpageNavBoxes from './SubpageNavBoxes'
-import MenuTakeover from './MenuTakeover'
 import TextBox from './TextBox'
 
 export {
@@ -24,10 +24,10 @@ export {
   Footer,
   FooterCTA,
   Loader,
+  MenuTakeover,
   Navbar,
   SearchTakeover,
   Section,
   SubpageNavBoxes,
-  MenuTakeover,
   TextBox
 }

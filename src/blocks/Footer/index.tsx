@@ -88,7 +88,7 @@ const Footer: React.SFC = () => (
       </div>
       <Copyright>
         <p>
-          &copy; 2018 First Church of Columbus.{' '}
+          &copy; {new Date().getFullYear()} First Church of Columbus.{' '}
           <a className="text-white" href="https://brightsaltmedia.com">
             Web design for churches
           </a>{' '}

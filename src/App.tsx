@@ -26,7 +26,8 @@ import {
   faHome,
   faTimes,
   faCalendar,
-  faClock
+  faClock,
+  faGift
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -40,7 +41,8 @@ library.add(
   faHome,
   faTimes,
   faCalendar,
-  faClock
+  faClock,
+  faGift
 )
 
 const theme = {

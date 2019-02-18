@@ -109,6 +109,11 @@ class Navbar extends React.Component<Props> {
           </Lockup>
         </Link>
         <Buttons>
+          <NavButton light isLink as={Link} to="/give">
+            <FontAwesomeIcon icon="gift" className="mr-3" />
+            Give
+          </NavButton>
+
           <NavButton
             light
             onClick={this.props.openSearch}

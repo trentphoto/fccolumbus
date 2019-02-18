@@ -1,7 +1,10 @@
 import React from 'react'
 import styled from '../../styled-components'
-// import { Button } from '../../blocks'
 import { ButtonProps } from '../Button'
+
+interface NavButtonProps extends ButtonProps {
+  as?: any // what type is Link?
+}
 
 const StyledNavButton = styled.div`
   /* styles from Button */
@@ -32,7 +35,7 @@ const StyledNavButton = styled.div`
   }
 `
 
-export default class NavButton extends React.Component<ButtonProps> {
+export default class NavButton extends React.Component<NavButtonProps> {
   render() {
     return (
       <StyledNavButton tabIndex={0} {...this.props}>
