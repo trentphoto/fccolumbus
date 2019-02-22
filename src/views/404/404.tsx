@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Helmet from 'react-helmet'
-import { Button, FooterCTA, Footer, Navbar, Section } from '../../blocks'
+import { FooterCTA, Footer, Navbar } from '../../blocks'
+import Section404 from './Section404'
 
 const NotFound = () => (
   <div className="page">
@@ -9,22 +10,7 @@ const NotFound = () => (
     </Helmet>
     <Navbar />
 
-    <Section>
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <h1>Page not found.</h1>
-            <p>
-              We're sorry for the error. You can go to our homepage or explore
-              via the Menu button at the top right of this page.
-            </p>
-            <Button isLink to="/">
-              Go Home?
-            </Button>
-          </div>
-        </div>
-      </div>
-    </Section>
+    <Section404 />
 
     <FooterCTA />
     <Footer />

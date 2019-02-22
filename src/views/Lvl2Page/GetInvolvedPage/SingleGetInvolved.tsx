@@ -3,6 +3,7 @@ import React from 'react'
 import { Breadcrumbs, Button, Card, Section, Content } from '../../../blocks'
 import H1 from '../../../components/layout/H1'
 import H2center from '../../../components/layout/H2center'
+import Section404 from '../../404/Section404'
 
 import { ReduxState } from '../../../types/redux'
 import { RouteComponentProps } from 'react-router'
@@ -27,7 +28,7 @@ class SingleGetInvolved extends React.Component<Props> {
       (i: ProcessedVol) => i.slug === this.props.match.params.slug
     )[0]
 
-    if (!vol) return null
+    if (!vol) return <Section404 />
 
     return (
       <>

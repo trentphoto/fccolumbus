@@ -10,6 +10,7 @@ import { RouteComponentProps } from 'react-router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Helmet from 'react-helmet'
 import { wrapTitle } from '../../../utils/withSEO'
+import Section404 from '../../404/Section404'
 
 const InfoBox = styled.p`
   background-color: ${props => props.theme.lightgray};
@@ -38,7 +39,7 @@ class SingleEvent extends React.Component<Props> {
       (i: ProcessedEvent) => i.slug === this.props.match.params.slug
     )[0]
 
-    if (!evt) return null
+    if (!evt) return <Section404 />
 
     return (
       <>

@@ -23,6 +23,8 @@ class EventsPage extends React.Component<Props> {
   private MainTemplate = () => <MainTemplate1 {...this.props} />
 
   public render() {
+    console.log(this.props)
+
     return (
       <>
         <Switch>

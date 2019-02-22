@@ -7,6 +7,7 @@ import { RouteComponentProps } from 'react-router'
 import { connect } from 'react-redux'
 import { ReduxState } from '../../../types/redux'
 import { getMonthName, getDayName } from '../../../utils/dates'
+import Section404 from '../../404/Section404'
 
 import { Breadcrumbs, Button, Card, Section, Content } from '../../../blocks'
 import H1 from '../../../components/layout/H1'
@@ -29,7 +30,7 @@ class SingleTemplateNews extends React.Component<Props> {
   render() {
     const { news, newsItem } = this.props
 
-    if (!newsItem) return null
+    if (!newsItem) return <Section404 />
 
     const date = new Date(newsItem.date)
     const dateString = `${getDayName(date.getDay())}, ${getMonthName(

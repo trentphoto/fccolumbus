@@ -11,6 +11,7 @@ import H2center from '../../../components/layout/H2center'
 import SingleFeaturedImage from './SingleFeaturedImage'
 import Helmet from 'react-helmet'
 import { wrapTitle } from '../../../utils/withSEO'
+import Section404 from '../../404/Section404'
 
 interface Props extends RouteComponentProps<MatchParams> {
   pages: ReduxState['pages']['allPages']
@@ -27,7 +28,7 @@ class SingleTemplate extends React.Component<Props> {
       (i: ProcessedNews) => i.slug === this.props.match.params.slug
     )[0]
 
-    if (!post) return null
+    if (!post) return <Section404 />
 
     const date = new Date(post.date)
     const dateString = `${getDayName(date.getDay())}, ${getMonthName(
