@@ -41,6 +41,8 @@ class SingleEvent extends React.Component<Props> {
 
     if (!evt) return null
 
+    evt.date = new Date(evt.date)
+
     return (
       <>
         <Helmet>
