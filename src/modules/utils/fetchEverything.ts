@@ -14,6 +14,5 @@ export const fetchEverything = (dispatch: Dispatch) => {
   fetchAllTestimonials()(dispatch)
   fetchAllPosts()(dispatch)
   fetchAllVols()(dispatch)
-  fetchAllVols()(dispatch)
   fetchAllStaff()(dispatch)
 }

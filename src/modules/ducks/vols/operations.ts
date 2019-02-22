@@ -4,8 +4,8 @@ import { Dispatch } from 'redux'
 import { urlBase } from '../../../config'
 
 export const fetchAllVolsRequest = () => Actions.fetchAllVolsRequest()
-export const fetchAllVolsSuccess = (events: ProcessedNews[]) =>
-  Actions.fetchAllVolsSuccess(events)
+export const fetchAllVolsSuccess = (vols: ProcessedVol[]) =>
+  Actions.fetchAllVolsSuccess(vols)
 export const fetchAllVolsFail = (error: string) =>
   Actions.fetchAllVolsFail(error)
 
