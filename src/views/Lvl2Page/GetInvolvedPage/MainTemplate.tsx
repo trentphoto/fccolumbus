@@ -9,6 +9,7 @@ interface Props {
   pages: ReduxState['pages']['allPages']
   news: ReduxState['news']['allNews']
   events: ReduxState['events']['allEvents']
+  vols: ReduxState['vols']['allVols']
 }
 
 class MainTemplate extends React.Component<Props> {
@@ -17,30 +18,30 @@ class MainTemplate extends React.Component<Props> {
       <>
         <Breadcrumbs
           levels={3}
-          lvl2Label="Gather"
-          lvl2Link="/gather"
-          lvl3Label="Events"
+          lvl2Label="Serve"
+          lvl2Link="/serve"
+          lvl3Label="Get Involved"
         />
 
         <Section>
           <div className="container">
             <div className="row">
               <div className="col">
-                <h1>Upcoming Events</h1>
+                <h1>Get Involved</h1>
                 <Content content={this.props.page.content.rendered} />
               </div>
             </div>
             <div className="row">
               <div className="col">
                 <Card.CardGrid>
-                  {this.props.events.data.map((i: ProcessedEvent) => (
+                  {this.props.vols.data.map((i: ProcessedVol) => (
                     <Card.Card
                       key={i.title}
                       title={i.title}
                       excerpt={i.excerpt}
                       img={i.img}
                       isLink
-                      link={`/gather/events/${i.slug}`}
+                      link={`/serve/get-involved/${i.slug}`}
                     />
                   ))}
                 </Card.CardGrid>
@@ -53,12 +54,8 @@ class MainTemplate extends React.Component<Props> {
           <div className="container">
             <div className="row">
               <div className="col text-center">
-                <H2center>Submit an Event</H2center>
-                <p className="mb-5 lead">
-                  Submit an event you are hosting in your local area that would
-                  be relevant for our wider community to attend. These will be
-                  posted after staff review.
-                </p>
+                <H2center>Submit a Volunteer Opportunity</H2center>
+                {/* <p className="mb-5 lead">Submit an event you are hosting in your local area that would be relevant for our wider community to attend. These will be posted after staff review.</p> */}
                 <a href="https://fcc-columbus.typeform.com/to/tHUqsW">
                   <Button>Submit An Event</Button>
                 </a>
@@ -71,4 +68,4 @@ class MainTemplate extends React.Component<Props> {
   }
 }
 
-export default withSEO(MainTemplate, { title: 'Events' })
+export default withSEO(MainTemplate, { title: 'Get Involved' })

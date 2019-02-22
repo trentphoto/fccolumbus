@@ -23,9 +23,10 @@ import {
 import StaffPage from './StaffPage'
 import NewsPage from './NewsPage'
 import EventsPage from './EventsPage'
+import PastorsBlogPage from './PastorsBlogPage'
+import GetInvolvedPage from './GetInvolvedPage'
 import { fetchEverything } from '../../modules/utils/fetchEverything'
 import { wrapTitle } from '../../utils/withSEO'
-import PastorsBlogPage from './PastorsBlogPage'
 
 const Copy = styled.section`
   display: grid;
@@ -95,6 +96,14 @@ class Lvl2Page extends React.Component<Props> {
     if (this.props.location.pathname.includes('news'))
       return (
         <NewsPage page={page} location={this.props.location} {...this.props} />
+      )
+    if (this.props.location.pathname.includes('get-involved'))
+      return (
+        <GetInvolvedPage
+          page={page}
+          location={this.props.location}
+          {...this.props}
+        />
       )
     if (this.props.location.pathname.includes('events'))
       return (

@@ -27,6 +27,8 @@ import {
   faTimes,
   faCalendar,
   faClock,
+  faCheckCircle,
+  faFrown,
   faGift
 } from '@fortawesome/free-solid-svg-icons'
 
@@ -42,6 +44,8 @@ library.add(
   faTimes,
   faCalendar,
   faClock,
+  faCheckCircle,
+  faFrown,
   faGift
 )
 

@@ -35,6 +35,8 @@ const ImgWrapper = styled.div`
   overflow: hidden;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
+  display: flex;
+  align-items: center;
 
   img {
     object-fit: cover;

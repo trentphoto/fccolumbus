@@ -1,7 +1,7 @@
 import React from 'react'
 import { ReduxState } from '../../../types/redux'
 
-import SingleEvent from './SingleEvent'
+import SingleGetInvolved from './SingleGetInvolved'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router'
 import { Switch, Route } from 'react-router-dom'
@@ -12,6 +12,7 @@ interface Props extends RouteComponentProps<MatchParams> {
   pages: ReduxState['pages']['allPages']
   news: ReduxState['news']['allNews']
   events: ReduxState['events']['allEvents']
+  vols: ReduxState['vols']['allVols']
 }
 
 interface MatchParams {
@@ -25,10 +26,10 @@ class EventsPage extends React.Component<Props> {
     return (
       <>
         <Switch>
-          <Route exact path="/gather/events" render={this.MainTemplate} />
+          <Route exact path="/serve/get-involved" render={this.MainTemplate} />
           <Route
-            path="/gather/events/:slug"
-            render={props => <SingleEvent {...this.props} {...props} />}
+            path="/serve/get-involved/:slug"
+            render={props => <SingleGetInvolved {...this.props} {...props} />}
           />
         </Switch>
       </>
@@ -39,7 +40,8 @@ class EventsPage extends React.Component<Props> {
 const mapStateToProps = (state: ReduxState) => ({
   pages: state.pages.allPages,
   news: state.news.allNews,
-  events: state.events.allEvents
+  events: state.events.allEvents,
+  vols: state.vols.allVols
 })
 
 export default connect(mapStateToProps)(EventsPage)

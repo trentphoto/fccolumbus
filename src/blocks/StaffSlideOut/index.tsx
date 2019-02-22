@@ -67,7 +67,7 @@ const ExitDark = styled(StyledExit)`
 `
 
 interface Props {
-  member: StaffMember | null
+  member: ProcessedStaff | null
   open: boolean
   close: () => void
 }
@@ -96,7 +96,7 @@ const StaffSlideOut = (props: Props) => (
         <FontAwesomeIcon className="mr-2" icon="envelope" />
         <span>{props.member && props.member.email}</span>
       </p>
-      <Content content={props.member ? props.member.bio : ''} />
+      <Content content={props.member ? props.member.content : ''} />
     </StyledStaffSlideOut>
   </Parent>
 )

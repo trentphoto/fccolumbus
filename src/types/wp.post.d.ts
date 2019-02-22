@@ -97,12 +97,3 @@ declare interface Subpage {
   title: string
   slug: string
 }
-
-declare interface StaffMember {
-  name: string
-  title: string
-  email: string
-  phone: string
-  img: string
-  bio: string
-}

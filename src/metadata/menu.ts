@@ -116,6 +116,10 @@ const Menu: MenuItem[] = [
     slug: 'serve',
     subpages: [
       {
+        title: 'Get Involved',
+        slug: 'get-involved'
+      },
+      {
         title: 'BREAD',
         slug: 'bread'
       },

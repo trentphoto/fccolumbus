@@ -43,6 +43,22 @@ const wpApiEndpoints = {
     } catch (error) {
       throw error.response.data
     }
+  },
+  getAllVols: async () => {
+    try {
+      const result = await axios.get(`${wpApiBase}/vol?per_page=99&_embed`)
+      return result.data as WPNews[]
+    } catch (error) {
+      throw error.response.data
+    }
+  },
+  getAllStaff: async () => {
+    try {
+      const result = await axios.get(`${wpApiBase}/staff?per_page=99&_embed`)
+      return result.data as WPStaff[]
+    } catch (error) {
+      throw error.response.data
+    }
   }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '../../styled-components'
 
-const StyledLoader = styled.div`
+const StyledLoader = styled('div')<{ light: boolean }>`
   width: 100%;
   height: 100%;
   display: flex;
@@ -19,7 +19,8 @@ const StyledLoader = styled.div`
       position: absolute;
       width: 5px;
       height: 5px;
-      background: ${props => props.theme.redDark};
+      background: ${props =>
+        props.light ? props.theme.white : props.theme.redDark};
       border-radius: 50%;
       animation: loader 1.2s linear infinite;
 
@@ -98,8 +99,12 @@ const StyledLoader = styled.div`
   }
 `
 
-export default () => (
-  <StyledLoader>
+interface Props {
+  light?: boolean
+}
+
+export default ({ light }: Props) => (
+  <StyledLoader light={light ? light : false}>
     <div className="loader">
       <div />
       <div />
