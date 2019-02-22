@@ -40,8 +40,9 @@ class SingleEvent extends React.Component<Props> {
     )[0]
 
     if (!evt) return null
+    const dayName = evt.date ? getDayName(evt.date.getDay()) : ''
 
-    const dateString = `${getDayName(evt.date.getDay())}, ${getMonthName(
+    const dateString = `${dayName}, ${getMonthName(
       evt.date.getMonth(),
       true
     )} ${evt.date.getDate()}, ${evt.date.getFullYear()}`
