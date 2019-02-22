@@ -10,7 +10,7 @@ import { RouteComponentProps } from 'react-router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Helmet from 'react-helmet'
 import { wrapTitle } from '../../../utils/withSEO'
-import { getDayName, getMonthName } from '../../../utils/dates'
+import { getMonthName } from '../../../utils/dates'
 
 const InfoBox = styled.p`
   background-color: ${props => props.theme.lightgray};
@@ -40,9 +40,9 @@ class SingleEvent extends React.Component<Props> {
     )[0]
 
     if (!evt) return null
-    const dayName = evt.date ? getDayName(evt.date.getDay()) : ''
+    // const dayName = evt.date ? getDayName(evt.date.getDay()) : ''
 
-    const dateString = `${dayName}, ${getMonthName(
+    const dateString = `${getMonthName(
       evt.date.getMonth(),
       true
     )} ${evt.date.getDate()}, ${evt.date.getFullYear()}`
