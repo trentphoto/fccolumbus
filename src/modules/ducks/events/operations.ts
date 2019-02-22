@@ -18,7 +18,7 @@ export const fetchAllEvents = () => async (dispatch: Dispatch) => {
     const eventsProcessed = events.map((i: WPEvent) => ({
       title: i.title.rendered,
       id: i.id,
-      date: new Date(i.acf.date),
+      date: i.acf.date,
       time: i.acf.time,
       location: i.acf.location,
       slug: i.slug,

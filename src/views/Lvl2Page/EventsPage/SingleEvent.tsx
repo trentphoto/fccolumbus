@@ -10,7 +10,6 @@ import { RouteComponentProps } from 'react-router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Helmet from 'react-helmet'
 import { wrapTitle } from '../../../utils/withSEO'
-import { getDayName, getMonthName } from '../../../utils/dates'
 
 const InfoBox = styled.p`
   background-color: ${props => props.theme.lightgray};
@@ -40,8 +39,6 @@ class SingleEvent extends React.Component<Props> {
     )[0]
 
     if (!evt) return null
-
-    evt.date = new Date(evt.date)
 
     return (
       <>
@@ -76,10 +73,7 @@ class SingleEvent extends React.Component<Props> {
                       className="mr-3"
                     />
                   </span>
-                  {`${getDayName(evt.date.getDay())}, ${getMonthName(
-                    evt.date.getMonth(),
-                    true
-                  )} ${evt.date.getDate()}, ${evt.date.getFullYear()}`}
+                  {evt.date}
                 </InfoBox>
                 <InfoBox>
                   <span>
