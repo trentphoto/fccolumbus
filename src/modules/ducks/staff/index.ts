@@ -1,6 +1,6 @@
 import reducer from './reducers'
-import * as volOperations from './operations'
+import * as newsOperations from './operations'
 
-export { volOperations }
+export { newsOperations }
 
 export default reducer

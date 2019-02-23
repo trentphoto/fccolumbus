@@ -3,18 +3,18 @@ import { Actions } from './actions'
 import { Dispatch } from 'redux'
 import { urlBase } from '../../../config'
 
-export const fetchAllStaffRequest = () => Actions.fetchAllStaffRequest()
-export const fetchAllStaffSuccess = (staff: ProcessedStaff[]) =>
-  Actions.fetchAllStaffSuccess(staff)
-export const fetchAllStaffFail = (error: string) =>
-  Actions.fetchAllStaffFail(error)
+export const fetchAllNewsRequest = () => Actions.fetchAllNewsRequest()
+export const fetchAllNewsSuccess = (news: ProcessedStaff[]) =>
+  Actions.fetchAllNewsSuccess(news)
+export const fetchAllNewsFail = (error: string) =>
+  Actions.fetchAllNewsFail(error)
 
 export const fetchAllStaff = () => async (dispatch: Dispatch) => {
   try {
-    dispatch(Actions.fetchAllStaffRequest())
-    const staff = await api.wp.getAllStaff()
+    dispatch(Actions.fetchAllNewsRequest())
+    const news = await api.wp.getAllStaff()
 
-    const staffProcessed = staff.map((i: WPStaff) => ({
+    const newsProcessed = news.map((i: WPStaff) => ({
       id: i.id,
       slug: i.slug,
       name: i.title.rendered,
@@ -27,11 +27,10 @@ export const fetchAllStaff = () => async (dispatch: Dispatch) => {
         : ''
     }))
 
-    dispatch(Actions.fetchAllStaffSuccess(staffProcessed))
-
-    return staff
+    dispatch(Actions.fetchAllNewsSuccess(newsProcessed))
+    return news
   } catch (error) {
-    dispatch(Actions.fetchAllStaffFail(error))
+    dispatch(Actions.fetchAllNewsFail(error))
     return error
   }
 }

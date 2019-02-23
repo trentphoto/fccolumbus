@@ -47,7 +47,7 @@ const wpApiEndpoints = {
   getAllVols: async () => {
     try {
       const result = await axios.get(`${wpApiBase}/vol?per_page=99&_embed`)
-      return result.data as WPNews[]
+      return result.data as WPEvent[]
     } catch (error) {
       throw error.response.data
     }

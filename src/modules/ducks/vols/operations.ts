@@ -19,8 +19,6 @@ export const fetchAllVols = () => async (dispatch: Dispatch) => {
     dispatch(Actions.fetchAllVolsRequest())
     const vols = await api.wp.getAllVols()
 
-    console.log(vols)
-
     const volsProcessed = vols.map((i: WPEvent) => ({
       title: i.title.rendered,
       id: i.id,

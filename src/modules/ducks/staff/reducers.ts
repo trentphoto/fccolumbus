@@ -15,11 +15,11 @@ const allStaff = (
   action: fromActions.Actions
 ) => {
   switch (action.type) {
-    case types.FETCH_ALL_STAFF_REQUEST:
+    case types.FETCH_ALL_NEWS_REQUEST:
       return { error: null, loading: true, data: [] }
-    case types.FETCH_ALL_STAFF_SUCCESS:
-      return { ...state, loading: false, data: action.payload.staff }
-    case types.FETCH_ALL_STAFF_FAIL:
+    case types.FETCH_ALL_NEWS_SUCCESS:
+      return { ...state, loading: false, data: action.payload.news }
+    case types.FETCH_ALL_NEWS_FAIL:
       return { ...state, loading: false, error: action.payload.error }
     default: {
       return state

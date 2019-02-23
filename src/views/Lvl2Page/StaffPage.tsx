@@ -30,6 +30,8 @@ class StaffPage extends React.Component<Props> {
   close = () => this.setState({ open: false })
 
   render() {
+    console.log(this.props.staff)
+
     return (
       <Section>
         <StaffSlideOut
