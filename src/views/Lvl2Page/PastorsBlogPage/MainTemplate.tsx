@@ -32,6 +32,10 @@ class MainTemplate extends React.Component<Props> {
                   <span dangerouslySetInnerHTML={{ __html: page.title }} />
                 </H1>
                 <Content content={page.content} />
+                <p>
+                  Click the button below to get updates on Pastor Tim's latest
+                  posts.
+                </p>
                 <Button>Get Updates</Button>
               </div>
               <div className="col-md-6">
