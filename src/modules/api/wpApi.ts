@@ -31,7 +31,6 @@ const wpApiEndpoints = {
   getAllEvents: async () => {
     try {
       const result = await axios.get(`${wpApiBase}/events?per_page=99&_embed`)
-      console.log(result.data)
       return result.data as WPEvent[]
     } catch (error) {
       throw error.response.data
@@ -56,7 +55,6 @@ const wpApiEndpoints = {
   getAllStaff: async () => {
     try {
       const result = await axios.get(`${wpApiBase}/staff?per_page=99&_embed`)
-      console.log(result.data)
       return result.data as WPStaff[]
     } catch (error) {
       throw error.response.data

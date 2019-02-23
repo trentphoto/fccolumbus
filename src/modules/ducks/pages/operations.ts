@@ -5,7 +5,6 @@ import { urlBase } from '../../../config'
 
 export const fetchAllPagesRequest = () => {
   Actions.fetchAllPagesRequest()
-  console.log('requesting pages...')
 }
 export const fetchAllPagesSuccess = (pages: ProcessedPage[]) =>
   Actions.fetchAllPagesSuccess(pages)
@@ -16,8 +15,6 @@ export const fetchAllPages = () => async (dispatch: Dispatch) => {
   try {
     dispatch(Actions.fetchAllPagesRequest())
     const pages = await api.wp.getAllPages()
-
-    console.log(pages)
 
     const pagesProcessed = pages.map((i: WPPage) => ({
       title: i.title.rendered,

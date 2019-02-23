@@ -27,6 +27,7 @@ import { fetchAllEvents } from '../dist/modules/ducks/events/operations'
 import { fetchAllNews } from '../dist/modules/ducks/news/operations'
 import { fetchAllTestimonials } from '../dist/modules/ducks/testimonials/operations'
 import { fetchAllStaff } from '../dist/modules/ducks/staff/operations'
+import { fetchAllVols } from '../dist/modules/ducks/vols/operations'
 
 // loader
 export default (req, res) => {
@@ -74,6 +75,7 @@ export default (req, res) => {
       const news = await fetchAllNews()(store.dispatch)
       const testimonials = await fetchAllTestimonials()(store.dispatch)
       const staff = await fetchAllStaff()(store.dispatch)
+      const vols = await fetchAllVols()(store.dispatch)
 
       // store.dispatch(fetchAllPagesSuccess(pages)) // this is passed into each function above, which calls the Success function anyway - so we don't need this
 
@@ -143,7 +145,7 @@ export default (req, res) => {
 
           // note: disable if you desire
           // let's output the title, just to see SSR is working as intended
-          console.log('THE TITLE', helmet.title.toString())
+          // console.log('THE TITLE', helmet.title.toString())
 
           // this must be called after the component is rendered above
           const styleTags = sheet.getStyleTags() // or sheet.getStyleElement();

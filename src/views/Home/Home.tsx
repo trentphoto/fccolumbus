@@ -35,32 +35,14 @@ interface Props {
   pages: ReduxState['pages']['allPages']
   news: ReduxState['news']['allNews']
   events: ReduxState['events']['allEvents']
-  blogs: ReduxState['blogs']['allPosts']
-  staff: ReduxState['staff']['allStaff']
   testimonials: ReduxState['testimonials']['allTestimonials']
   fetchAll: () => any
 }
 
 class Home extends React.Component<Props> {
   public componentDidMount() {
-    const {
-      pages,
-      news,
-      events,
-      testimonials,
-      blogs,
-      staff,
-      fetchAll
-    } = this.props
-    if (
-      !pages ||
-      pages.data.length === 0 ||
-      (!news || news.data.length === 0) ||
-      (!events || events.data.length === 0) ||
-      (!blogs || blogs.data.length === 0) ||
-      (!testimonials || testimonials.data.length === 0) ||
-      (!staff || staff.data.length === 0)
-    ) {
+    const { pages, fetchAll } = this.props
+    if (!pages || pages.data.length === 0) {
       fetchAll()
     }
   }
@@ -242,8 +224,6 @@ const mapStateToProps = (state: ReduxState) => ({
   pages: state.pages.allPages,
   news: state.news.allNews,
   events: state.events.allEvents,
-  blogs: state.blogs.allPosts,
-  staff: state.staff.allStaff,
   testimonials: state.testimonials.allTestimonials
 })
 
