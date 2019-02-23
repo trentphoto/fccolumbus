@@ -18,17 +18,15 @@ import createStore from '../dist/modules/store'
 import App from '../dist/App'
 import manifest from '../build/asset-manifest.json'
 
-import {
-  fetchAllPagesSuccess,
-  fetchAllPages
-} from '../dist/modules/ducks/pages/operations'
-
 // styled-components stuff
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
+
+import { fetchAllPages } from '../dist/modules/ducks/pages/operations'
 import { fetchAllPosts } from '../dist/modules/ducks/blog/operations'
 import { fetchAllEvents } from '../dist/modules/ducks/events/operations'
 import { fetchAllNews } from '../dist/modules/ducks/news/operations'
 import { fetchAllTestimonials } from '../dist/modules/ducks/testimonials/operations'
+import { fetchAllStaff } from '../dist/modules/ducks/staff/operations'
 
 // loader
 export default (req, res) => {
@@ -75,6 +73,7 @@ export default (req, res) => {
       const events = await fetchAllEvents()(store.dispatch)
       const news = await fetchAllNews()(store.dispatch)
       const testimonials = await fetchAllTestimonials()(store.dispatch)
+      const staff = await fetchAllStaff()(store.dispatch)
 
       // store.dispatch(fetchAllPagesSuccess(pages)) // this is passed into each function above, which calls the Success function anyway - so we don't need this
 
