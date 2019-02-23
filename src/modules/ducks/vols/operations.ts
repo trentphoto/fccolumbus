@@ -3,11 +3,16 @@ import { Actions } from './actions'
 import { Dispatch } from 'redux'
 import { urlBase } from '../../../config'
 
-export const fetchAllVolsRequest = () => Actions.fetchAllVolsRequest()
+export const fetchAllVolsRequest = () => {
+  Actions.fetchAllVolsRequest()
+  console.log('requesting vols....')
+}
 export const fetchAllVolsSuccess = (vols: ProcessedVol[]) =>
   Actions.fetchAllVolsSuccess(vols)
-export const fetchAllVolsFail = (error: string) =>
+export const fetchAllVolsFail = (error: string) => {
   Actions.fetchAllVolsFail(error)
+  console.log('vols failed')
+}
 
 export const fetchAllVols = () => async (dispatch: Dispatch) => {
   try {
