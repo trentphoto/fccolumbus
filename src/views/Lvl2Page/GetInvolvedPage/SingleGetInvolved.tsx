@@ -13,8 +13,6 @@ import { wrapTitle } from '../../../utils/withSEO'
 interface Props extends RouteComponentProps<MatchParams> {
   page: ProcessedPage
   pages: ReduxState['pages']['allPages']
-  news: ReduxState['news']['allNews']
-  events: ReduxState['events']['allEvents']
   vols: ReduxState['vols']['allVols']
 }
 

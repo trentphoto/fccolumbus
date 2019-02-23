@@ -7,8 +7,6 @@ import H2center from '../../../components/layout/H2center'
 interface Props {
   page: WPPage
   pages: ReduxState['pages']['allPages']
-  news: ReduxState['news']['allNews']
-  events: ReduxState['events']['allEvents']
   vols: ReduxState['vols']['allVols']
 }
 
@@ -57,7 +55,7 @@ class MainTemplate extends React.Component<Props> {
                 <H2center>Submit a Volunteer Opportunity</H2center>
                 {/* <p className="mb-5 lead">Submit an event you are hosting in your local area that would be relevant for our wider community to attend. These will be posted after staff review.</p> */}
                 <a href="https://fcc-columbus.typeform.com/to/tHUqsW">
-                  <Button>Submit An Event</Button>
+                  <Button>Submit An Opportunity</Button>
                 </a>
               </div>
             </div>
