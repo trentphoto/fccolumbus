@@ -8,5 +8,5 @@ export interface VolState {
     loading: boolean
     data: ProcessedVol[]
   }
-  vols?: WPNews
+  vols?: WPEvent
 }

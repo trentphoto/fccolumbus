@@ -25,7 +25,6 @@ const InfoBox = styled.p`
 interface Props extends RouteComponentProps<MatchParams> {
   page: ProcessedPage
   pages: ReduxState['pages']['allPages']
-  news: ReduxState['news']['allNews']
   events: ReduxState['events']['allEvents']
 }
 

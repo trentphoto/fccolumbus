@@ -7,7 +7,6 @@ import H2center from '../../../components/layout/H2center'
 interface Props {
   page: WPPage
   pages: ReduxState['pages']['allPages']
-  news: ReduxState['news']['allNews']
   events: ReduxState['events']['allEvents']
 }
 

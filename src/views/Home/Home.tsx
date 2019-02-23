@@ -37,6 +37,7 @@ interface Props {
   events: ReduxState['events']['allEvents']
   blogs: ReduxState['blogs']['allPosts']
   testimonials: ReduxState['testimonials']['allTestimonials']
+  vols: ReduxState['vols']['allVols']
   fetchAll: () => any
 }
 
@@ -55,7 +56,7 @@ class Home extends React.Component<Props> {
     }
   }
   public render() {
-    const { news, events, testimonials } = this.props
+    const { news, events, testimonials, vols } = this.props
     const randT =
       testimonials.data[Math.floor(Math.random() * testimonials.data.length)]
 
@@ -220,6 +221,40 @@ class Home extends React.Component<Props> {
           </div>
         </Section>
 
+        <Section bg="red">
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <H2center>Latest Vol Opportunities</H2center>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <Card.CardGrid>
+                  {vols &&
+                    vols.data.map((i: ProcessedVol) => (
+                      <Card.Card
+                        key={i.title}
+                        isLink
+                        link={`/serve/news/${i.slug}`}
+                        title={i.title}
+                        excerpt={i.excerpt}
+                        img={i.img}
+                      />
+                    ))}
+                </Card.CardGrid>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col text-center">
+                <Button isLink to="/connect/news">
+                  View More News
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Section>
+
         <FooterCTA />
 
         <Footer />
@@ -233,6 +268,7 @@ const mapStateToProps = (state: ReduxState) => ({
   news: state.news.allNews,
   events: state.events.allEvents,
   blogs: state.blogs.allPosts,
+  vols: state.vols.allVols,
   testimonials: state.testimonials.allTestimonials
 })
 

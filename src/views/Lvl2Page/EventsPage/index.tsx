@@ -10,7 +10,6 @@ import MainTemplate1 from './MainTemplate'
 interface Props extends RouteComponentProps<MatchParams> {
   page: ProcessedPage
   pages: ReduxState['pages']['allPages']
-  news: ReduxState['news']['allNews']
   events: ReduxState['events']['allEvents']
 }
 
@@ -38,7 +37,6 @@ class EventsPage extends React.Component<Props> {
 
 const mapStateToProps = (state: ReduxState) => ({
   pages: state.pages.allPages,
-  news: state.news.allNews,
   events: state.events.allEvents
 })
 

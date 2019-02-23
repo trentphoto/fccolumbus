@@ -17,12 +17,10 @@ interface MatchParams {
   slug: string
 }
 
-class EventsPage extends React.Component<Props> {
+class VolsPage extends React.Component<Props> {
   private MainTemplate = () => <MainTemplate1 {...this.props} />
 
   public render() {
-    console.log(this.props)
-
     return (
       <>
         <Switch>
@@ -42,4 +40,4 @@ const mapStateToProps = (state: ReduxState) => ({
   vols: state.vols.allVols
 })
 
-export default connect(mapStateToProps)(EventsPage)
+export default connect(mapStateToProps)(VolsPage)
