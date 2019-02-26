@@ -5,6 +5,7 @@ import withSEO from '../../utils/withSEO'
 import { RouteComponentProps } from 'react-router'
 import { ReduxState } from '../../types/redux'
 import { connect } from 'react-redux'
+import placeholderImg from '../../img/user.svg'
 
 interface Props extends RouteComponentProps<MatchParams> {
   staff: ReduxState['staff']['allStaff']
@@ -47,7 +48,7 @@ class StaffPage extends React.Component<Props> {
                       key={i.name}
                       title={i.name}
                       excerpt={i.title}
-                      img={i.img}
+                      img={i.img || placeholderImg}
                       onClick={this.updateMember.bind(this, i)}
                     />
                   ))}

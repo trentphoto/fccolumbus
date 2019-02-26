@@ -20,9 +20,11 @@ import {
 import HomeHero from './HomeHero'
 import Gallery from './Gallery'
 
-import img1 from '../../img/fcc-80.jpg'
-import img2 from '../../img/fcc-44.jpg'
-import img3 from '../../img/fcc-63.jpg'
+import img1 from '../../img/fcc-30.jpg'
+import img2 from '../../img/fcc-26.jpg'
+import img3 from '../../img/fcc-46.jpg'
+import fcc66 from '../../img/fcc-66.jpg'
+import fccServe from '../../img/fcc-serve.jpeg'
 import imgT from '../../img/fcc-89.jpg'
 
 import { connect } from 'react-redux'
@@ -84,7 +86,7 @@ class Home extends React.Component<Props> {
               </div>
               <div className="col-md-3">
                 <BannerCard
-                  img={img1}
+                  img={fccServe}
                   title="Lead"
                   subtitle="Join our mission"
                   link="/lead"
@@ -99,7 +101,7 @@ class Home extends React.Component<Props> {
             <div className="row align-items-center">
               <div className="col-md-6">
                 <img
-                  src={img2}
+                  src={fcc66}
                   alt="First Church Columbus UCC"
                   className="img-fluid TextBox-img"
                 />
