@@ -131,7 +131,7 @@ class HomeHero extends React.Component<Props> {
               <div className="icons d-flex">
                 <NavButton light isLink as={Link} to="/give" className="mr-2">
                   <FontAwesomeIcon icon="gift" size="lg" />
-                  <span className="label ml-2">Give</span>
+                  <span className="ml-2">Give</span>
                 </NavButton>
                 <NavButton
                   light

@@ -26,7 +26,7 @@ export const fetchAllEvents = () => async (dispatch: Dispatch) => {
       excerpt: i.acf.excerpt,
       img: i._embedded
         ? urlBase + i._embedded['wp:featuredmedia'][0].source_url
-        : undefined
+        : ''
     }))
 
     const eventsProcessedSorted = eventsProcessed.sort(sortEventsByDate)

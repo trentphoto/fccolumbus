@@ -178,11 +178,11 @@ const Menu: MenuItem[] = [
         slug: 'church-council'
       }
     ]
-  },
-  {
-    title: 'Give',
-    slug: 'give'
   }
+  // {
+  //   title: 'Give',
+  //   slug: 'give'
+  // }
 ]
 
 export default Menu

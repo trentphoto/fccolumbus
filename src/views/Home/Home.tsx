@@ -87,9 +87,9 @@ class Home extends React.Component<Props> {
               <div className="col-md-3">
                 <BannerCard
                   img={fccServe}
-                  title="Lead"
+                  title="Serve"
                   subtitle="Join our mission"
-                  link="/lead"
+                  link="/serve"
                 />
               </div>
             </div>
@@ -110,9 +110,10 @@ class Home extends React.Component<Props> {
                 <TextBox>
                   <H3>About First Church</H3>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Incidunt itaque alias quia, asperiores veniam exercitationem
-                    doloribus. Earum, voluptates! Maiores, facere!
+                    We welcome, affirm and love all people at First Church
+                    because we all are children of a loving God. Wherever you
+                    are on your faith journey, we invite you to join us in our
+                    diverse yet united experience.
                   </p>
                 </TextBox>
               </div>
